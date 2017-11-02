@@ -60,7 +60,8 @@ if n_PC_wm > n_PC
     error('n_PC_wm should be no greater than n_PC.');
 end
 
-Q_N_I = Q_N(info_bit_pattern);
+Q_I = 1:N;
+Q_N_I = intersect(Q_N, Q_I(info_bit_pattern), 'stable');
 
 G_N = get_G_N(N);
 w_g = sum(G_N,2);
