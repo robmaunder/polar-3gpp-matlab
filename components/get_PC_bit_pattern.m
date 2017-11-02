@@ -65,11 +65,11 @@ Q_N_I = Q_N(info_bit_pattern);
 G_N = get_G_N(N);
 w_g = sum(G_N,2);
 
-%Q_tilde_N_I = Q_N_I(n_PC+1:end); % This is what it says in TS 38.212 V1.0.1
-Q_tilde_N_I = Q_N_I(n_PC-n_PC_wm+1:end); % This is what I think it should say
+Q_tilde_N_I = Q_N_I(n_PC+1:end); % This is what it says in TS 38.212 V1.0.1
+%Q_tilde_N_I = Q_N_I(n_PC-n_PC_wm+1:end); % This is what I think it should say
 
 Q_tilde_N_I_flip = fliplr(Q_tilde_N_I);
-[~, indices] = sort(w_g(Q_tilde_N_I_flip));
+[w_g_sorted, indices] = sort(w_g(Q_tilde_N_I_flip));
 
 Q_N_PC = [Q_N_I(1:n_PC-n_PC_wm), Q_tilde_N_I_flip(indices(1:n_PC_wm))];
 

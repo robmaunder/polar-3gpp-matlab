@@ -58,9 +58,6 @@ N = length(info_bit_pattern);
 if log2(N) ~= round(log2(N))
     error('N should be a power of 2');
 end
-if sum(info_bit_pattern) ~= K
-    error('info_bit_pattern should contain K number of ones.');
-end
 if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
