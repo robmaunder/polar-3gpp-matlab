@@ -6,7 +6,7 @@ function N = get_3GPP_N(K,E,n_max)
 %   output of the polar encoder kernal N.
 %
 %   K should be an integer scalar. It specifies the number of bits in the
-%   information and CRC bit sequence. It should be less than E and no
+%   information and CRC bit sequence. It should be no greater than E and no
 %   greater than 2^n_max.
 %
 %   E should be an integer scalar. It specifies the number of bits in the
@@ -26,11 +26,11 @@ function N = get_3GPP_N(K,E,n_max)
 % FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
 % more details.
 
-if K >= E
-    error('K should be less than E.');
+if E<K
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than K.');
 end
 if K > 2^n_max
-    error('K should be no greater than 2^n_max.');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than 2^n_max.');
 end
 
 

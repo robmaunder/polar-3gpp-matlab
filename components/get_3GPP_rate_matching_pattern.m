@@ -7,7 +7,7 @@ function [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K, N, E)
 %   obtains the rate matching sequence.
 %
 %   K should be an integer scalar. It specifies the number of bits in the 
-%   information and CRC bit sequence. It should be less than E and no
+%   information and CRC bit sequence. It should be no greater than E and no
 %   greater than N.
 %
 %   N should be an integer scalar, which should be a power of 2 and no less 
@@ -49,8 +49,8 @@ end
 if n < 5
     error('N should be no smaller than 32');
 end
-if K >= E
-    error('K should be less than E.');
+if K > E
+    error('K should be no greater than E.');
 end
 if K > N
     error('K should be no greater than N.');

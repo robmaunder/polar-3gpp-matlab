@@ -27,8 +27,8 @@ addpath 'components'
 
 A = length(a);
 
-if E<=A
-    error('E should be greater than A.');
+if E<A
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
 end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
@@ -62,22 +62,22 @@ N = get_3GPP_N(K,E,inf); % Not generally compatible with get_3GPP_sequence_patte
 % Q_N = get_3GPP_sequence_pattern(N);
 Q_N = get_PW_sequence_pattern(N);
 
-% I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
-n_PC = 3;
-I = K+n_PC; % Required for PCCA_polar_encoder
+I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
+% n_PC = 3;
+% I = K+n_PC; % Required for PCCA_polar_encoder
 
 % Get an information bit pattern.
 info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
 % info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
 
 % PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
-PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
+% PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
 
 % Perform polar encoding.
 % e = polar_encoder(a,info_bit_pattern,rate_matching_pattern);
-% e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
+e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
 % e = DCA_polar_encoder(a,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
-e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
+% e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
 
 % Perform channel interleaving.
 channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E);

@@ -38,8 +38,8 @@ addpath 'components'
 
 E = length(f_tilde);
 
-if A>=E
-    error('A should be less than E.');
+if E<A
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
 end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is

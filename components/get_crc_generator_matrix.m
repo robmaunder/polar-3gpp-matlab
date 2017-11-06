@@ -28,10 +28,17 @@ function G_P = get_crc_generator_matrix(A, crc_polynomial_pattern)
 
 
 P = length(crc_polynomial_pattern)-1;
+
+if P<1
+    error('crc_polynomial_pattern is invalid');
+end
+
 G_P = zeros(A,P);
 
-G_P(end,:) = crc_polynomial_pattern(2:end);
+if A>0
+    G_P(end,:) = crc_polynomial_pattern(2:end);
 
-for k = A-1:-1:1
-    G_P(k,:) = xor([G_P(k+1,2:end),0],G_P(k+1,1)*crc_polynomial_pattern(2:end));
+    for k = A-1:-1:1
+        G_P(k,:) = xor([G_P(k+1,2:end),0],G_P(k+1,1)*crc_polynomial_pattern(2:end));
+    end
 end

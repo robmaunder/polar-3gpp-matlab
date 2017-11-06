@@ -68,7 +68,7 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 
 % Default values
 if nargin == 0
-    code = 'PBCH';
+    code = 'custom1';
     A = 144;
     E = round(A./[0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250]);
     L = 1;
@@ -114,7 +114,7 @@ for E_index = 1:length(E)
     EsN0 = EsN0_start(E_index);
     
     % Skip any encoded block lengths that generate errors
-%   try
+   try
         % Loop over the SNRs
         while BLER > target_BLER
             
@@ -175,10 +175,13 @@ for E_index = 1:length(E)
             EsN0 = EsN0 + EsN0_delta;
             
         end        
-%     catch ME
-%         % Issue any errors as warnings and move on to the next encoded block length.
-%         warning(['E=',num2str(E(E_index)),' - ',ME.message]);     
-%     end
+    catch ME
+        if strcmp(ME.identifier, 'polar_3gpp_matlab:UnsupportedBlockLength')
+            continue
+        else
+            rethrow(ME);
+        end
+    end
     
     % Close the file
     fclose(fid);
