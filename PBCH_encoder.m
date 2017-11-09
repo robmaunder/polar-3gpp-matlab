@@ -27,13 +27,15 @@ function f = PBCH_encoder(a, E)
 
 addpath 'components'
 
+% E is always 864 in PBCH
+if nargin<2
+    E = 864;
+end
+if E ~= 864
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be 864.');
+end
+
 A = length(a);
-if E<A
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
-end
-if A > 200
-    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 200.');
-end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1

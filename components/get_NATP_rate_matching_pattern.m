@@ -44,7 +44,7 @@ if round(log2(N))~=log2(N)
     error('N should be a power of 2');
 end
 if E>N
-    error('E should be no greater than N');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no greater than N');
 end
 
 rate_matching_pattern = N-E+1:N;

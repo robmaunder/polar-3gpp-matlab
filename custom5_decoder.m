@@ -38,13 +38,13 @@ addpath 'components'
 
 E = length(f_tilde);
 
-if E<A
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
-end
-
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
-crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+% crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+
+% The CRC polynomial used in 3GPP PUCCH channel is
+% D^11 + D^10 + D^9 + D^5 + 1
+crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
 
 % The CRC has P bits. P-min(P2,log2(L)) of these are used for error
 % detection, where L is the list size. Meanwhile, min(P2,log2(L)) of
@@ -79,25 +79,43 @@ N = get_3GPP_N(K,E,10); % n_max = 10 is used in PUCCH channels
 Q_N = get_3GPP_sequence_pattern(N);
 % Q_N = get_PW_sequence_pattern(N);
 
-I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
-% n_PC = 3;
-% I = K+n_PC; % Required for PCCA_polar_encoder
-
-% Get an information bit pattern.
-info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
-% info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
-
-% PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
-% PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
-
 % Perform channel deinterleaving
 % channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E);
 % e_tilde = zeros(1,E);
 % e_tilde(channel_interleaver_pattern) = f_tilde;
 e_tilde = f_tilde;
 
+if K <= 22
+
+    % I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
+    n_PC = 3;
+    I = K+n_PC; % Required for PCCA_polar_encoder
+
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
+    % info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
+
+    if E-K <= 192
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
+    else        
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
+    end
+    a_hat = PCCA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,PC_bit_pattern,5,rate_matching_pattern,mode,L,min_sum,P2);
+else
+    I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
+%     n_PC = 3;
+%     I = K+n_PC; % Required for PCCA_polar_encoder
+
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
+    % info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
+
+    a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+end   
+
+
 % Perform polar decoding.
 % a_hat = polar_decoder(e_tilde,info_bit_pattern,rate_matching_pattern,mode,L,min_sum);
-a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+% a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
 % a_hat = DCA_polar_decoder(e_tilde,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
-% a_hat = PCCA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,PC_bit_pattern,5,rate_matching_pattern,mode,L,min_sum,P2);
+%a_hat = PCCA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,PC_bit_pattern,5,rate_matching_pattern,mode,L,min_sum,P2);

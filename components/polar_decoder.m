@@ -6,7 +6,7 @@ function a_hat = polar_decoder(e_tilde, info_bit_pattern, rate_matching_pattern,
 %
 %   e_tilde should be a real row vector comprising E number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
-%   ln(P(bit=0)/P(bit=1)
+%   ln(P(bit=0)/P(bit=1)).
 %
 %   info_bit_pattern should be a row vector comprising N number of logical 
 %   elements, each having the value true or false. The number of elements 
@@ -61,6 +61,22 @@ end
 if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
+if strcmp(mode,'repetition') 
+    if E < N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'puncturing')
+    if E >= N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'shortening')
+     if E >= N
+        error('mode is not compatible with E');
+    end
+else
+    error('Unsupported mode');
+end
+
 
 % This global variable is used by the minstar and phi functions.
 global approx_minstar

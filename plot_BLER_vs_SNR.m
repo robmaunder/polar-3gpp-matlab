@@ -69,7 +69,7 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 % Default values
 if nargin == 0
     code = 'custom1';
-    A = 144;
+    A = 24;
     E = round(A./[0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250]);
     L = 1;
     min_sum = true;
@@ -108,6 +108,9 @@ for E_index = 1:length(E)
     % Open a file to save the results into.
     filename = ['results/results_',code,'_',num2str(A),'_',num2str(E(E_index)),'_',num2str(L),'_',num2str(min_sum),'_',num2str(seed)];
     fid = fopen([filename,'.txt'],'w');
+    if fid == -1
+        error('Could not open %s.txt',filename);
+    end
     
     % Initialise the BLER and SNR
     BLER = 1;
@@ -177,6 +180,7 @@ for E_index = 1:length(E)
         end        
     catch ME
         if strcmp(ME.identifier, 'polar_3gpp_matlab:UnsupportedBlockLength')
+            warning('polar_3gpp_matlab:UnsupportedBlockLength','%s does not support the combination of block lengths A=%d and E=%d. %s',code,A,E(E_index), getReport(ME, 'basic', 'hyperlinks', 'on' ));
             continue
         else
             rethrow(ME);

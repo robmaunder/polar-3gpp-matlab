@@ -40,11 +40,10 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
 addpath 'components'
 
 E = length(f_tilde);
-if E<A
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
-end
-if A > 200
-    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 200.');
+
+% E is always 864 in PBCH
+if E ~= 864
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be 864.');
 end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is

@@ -27,19 +27,25 @@ addpath 'components'
 
 A = length(a);
 
-if E<A
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
-end
-
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
-crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+% crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+
+% The CRC polynomial used in 3GPP PUCCH channel is
+% D^11 + D^10 + D^9 + D^5 + 1
+crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
+
+
+
 P = length(crc_polynomial_pattern)-1;
 
 % Determine the number of information and CRC bits (if any).
 %K = A; % Required for polar_encoder
 K = A+P; % Required for CA_polar_encoder, DCA_polar_encoder
 
+if K < 12
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no less than 12.');
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
@@ -62,22 +68,38 @@ N = get_3GPP_N(K,E,10); % n_max = 10 is used in PUCCH channels
 Q_N = get_3GPP_sequence_pattern(N);
 % Q_N = get_PW_sequence_pattern(N);
 
-I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
-% n_PC = 3;
-% I = K+n_PC; % Required for PCCA_polar_encoder
+if K <= 22
 
-% Get an information bit pattern.
-info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
-% info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
+    % I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
+    n_PC = 3;
+    I = K+n_PC; % Required for PCCA_polar_encoder
 
-% PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
-% PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
+    % info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
 
+    if E-K <= 192
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
+    else        
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
+    end
+    e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
+else
+    I = K; % Required for polar_encoder, CA_polar_encoder, DCA_polar_encoder
+%     n_PC = 3;
+%     I = K+n_PC; % Required for PCCA_polar_encoder
+
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode);
+    % info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern);
+
+    e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
+    
+end
 % Perform polar encoding.
 % e = polar_encoder(a,info_bit_pattern,rate_matching_pattern);
-e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
+% e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
 % e = DCA_polar_encoder(a,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
-% e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
 
 % Perform channel interleaving.
 % channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E);

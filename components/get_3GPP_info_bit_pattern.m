@@ -6,7 +6,7 @@ function info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_patt
 %   obtains the information bit pattern info_bit_pattern.
 %
 %   K should be an integer scalar. It specifies the number of bits in the 
-%   information and CRC bit sequence. It should be no greater than N.
+%   information and CRC bit sequence. It should be no greater than N or E.
 %
 %   Q_N should be a row vector comprising N number of unique integers in the 
 %   range 1 to N. Each successive element of Q_N provides the index of the
@@ -54,10 +54,28 @@ if n ~= round(n)
     error('N should be a power of 2');
 end
 if K > N
-    error('K should be no greater than N.');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than N.');
+end
+if K > E
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than E.');
 end
 if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
+end
+if strcmp(mode,'repetition') 
+    if E < N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'puncturing')
+    if E >= N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'shortening')
+     if E >= N
+        error('mode is not compatible with E');
+    end
+else
+    error('Unsupported mode');
 end
 
 %% This is how the rate matching is described in TS 38.212
@@ -101,6 +119,10 @@ end
 
 %% 
 Q_Itmp_N = setdiff(Q_N-1,Q_Ftmp_N,'stable'); % -1 because TS 38.212 assumes that indices start at 0, not 1 like in Matlab
+
+if length(Q_Itmp_N) < K
+    error('polar_3gpp_matlab:UnsupportedBlockLength','Too many pre-frozen bits.');
+end    
 
 Q_I_N=Q_Itmp_N(end-K+1:end);
 %Q_F_N= setdiff(Q_N-1,Q_I_N,'stable'); % -1 because TS 38.212 assumes that indices start at 0, not 1 like in Matlab

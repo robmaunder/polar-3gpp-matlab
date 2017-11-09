@@ -27,10 +27,6 @@ addpath 'components'
 
 A = length(a);
 
-if E<A
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than A.');
-end
-
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
 crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
@@ -49,7 +45,7 @@ N = get_3GPP_N(K,E,9); % n_max = 9 is used in PBCH and PDCCH channels
 % N = 2^ceil(log2(E)); % Required for BIVS, BIVP, NATS or NATP rate matching
 
 % Get a CRC interleaver pattern.
-% crc_interleaver_pattern = get_3GPP_crc_interleaver_pattern(K);
+crc_interleaver_pattern = get_3GPP_crc_interleaver_pattern(K);
 
 % Get a rate matching pattern.
 [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E);
@@ -75,8 +71,8 @@ info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode
 
 % Perform polar encoding.
 % e = polar_encoder(a,info_bit_pattern,rate_matching_pattern);
-e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
-% e = DCA_polar_encoder(a,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
+% e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
+e = DCA_polar_encoder(a,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
 % e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
 
 % Perform channel interleaving.

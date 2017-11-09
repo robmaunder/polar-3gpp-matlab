@@ -4,7 +4,7 @@ function info_bit_pattern = get_info_bit_pattern(K, Q_N, rate_matching_pattern)
 %   obtains the information bit pattern info_bit_pattern.
 %
 %   K should be an integer scalar. It specifies the number of bits in the 
-%   information and CRC bit sequence. It should be no greater than N.
+%   information and CRC bit sequence. It should be no greater than N or E.
 %
 %   Q_N should be a row vector comprising N number of unique integers in the 
 %   range 1 to N. Each successive element of Q_N provides the index of the
@@ -45,7 +45,10 @@ if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
 if K > N
-    error('K should be no greater than N');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than N');
+end
+if K > E
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than E');
 end
 
 Q_Itmp_N = intersect(Q_N, rate_matching_pattern, 'stable');

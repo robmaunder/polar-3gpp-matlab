@@ -7,8 +7,7 @@ function [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K, N, E)
 %   obtains the rate matching sequence.
 %
 %   K should be an integer scalar. It specifies the number of bits in the 
-%   information and CRC bit sequence. It should be no greater than E and no
-%   greater than N.
+%   information and CRC bit sequence.
 %
 %   N should be an integer scalar, which should be a power of 2 and no less 
 %   than 32. It specifies the number of bits in the input and output of the 
@@ -47,13 +46,7 @@ if n ~= round(n)
     error('N should be a power of 2');
 end
 if n < 5
-    error('N should be no smaller than 32');
-end
-if K > E
-    error('K should be no greater than E.');
-end
-if K > N
-    error('K should be no greater than N.');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','N should be no smaller than 32');
 end
 
 P = [0 1 2 4 3 5 6 7 8 16 9 17 10 18 11 19 12 20 13 21 14 22 15 23 24 25 26 28 27 29 30 31];

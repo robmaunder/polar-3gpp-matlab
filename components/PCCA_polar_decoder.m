@@ -6,7 +6,7 @@ function a_hat = PCCA_polar_decoder(e_tilde, crc_polynomial_pattern, info_bit_pa
 %
 %   e_tilde should be a real row vector comprising E number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
-%   ln(P(bit=0)/P(bit=1)
+%   ln(P(bit=0)/P(bit=1)).
 %
 %   crc_polynomial_pattern should be a binary row vector comprising P+1
 %   number of bits, each having the value 0 or 1. These bits parameterise a
@@ -87,6 +87,21 @@ end
 if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
+if strcmp(mode,'repetition') 
+    if E < N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'puncturing')
+    if E >= N
+        error('mode is not compatible with E');
+    end
+elseif strcmp(mode,'shortening')
+     if E >= N
+        error('mode is not compatible with E');
+    end
+else
+    error('Unsupported mode');
+end
 
 % This global variable is used by the minstar and phi functions.
 global approx_minstar
@@ -132,7 +147,6 @@ llrs_updated = [false(N,log2(N)),true(N,1)];
 PM = zeros(1,1,1);
 L_prime = 1;
 
-k = 0;
 y = zeros(1,PC_circular_buffer_length);
 
 

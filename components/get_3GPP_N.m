@@ -6,8 +6,7 @@ function N = get_3GPP_N(K,E,n_max)
 %   output of the polar encoder kernal N.
 %
 %   K should be an integer scalar. It specifies the number of bits in the
-%   information and CRC bit sequence. It should be no greater than E and no
-%   greater than 2^n_max.
+%   information and CRC bit sequence.
 %
 %   E should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence.
@@ -26,13 +25,6 @@ function N = get_3GPP_N(K,E,n_max)
 % FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
 % more details.
 
-if E<K
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no less than K.');
-end
-if K > 2^n_max
-    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than 2^n_max.');
-end
-
 
 if E <= (9/8)*2^(ceil(log2(E))-1) && K/E < 9/16
     n_1=ceil(log2(E))-1;
@@ -44,7 +36,10 @@ R_min=1/8;
 n_2=ceil(log2(K/R_min));
 n=min([n_1,n_2,n_max]);
 
-n = max(n,5); % This is not stated in 3GPP TS 38.212 V1.0.1, but it is necessary for compatibility with the sub-block interleaver during rate-matching
+% The following line is not stated in 3GPP TS 38.212 V1.0.1, but it can
+% be used to make short block lengths compatible with 3GPP rate matching, 
+% which assumes a minimum n of 5.
+% n = max(n,5); 
 
 N=2^n;
 end

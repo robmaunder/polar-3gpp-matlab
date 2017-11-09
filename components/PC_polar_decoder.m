@@ -1,6 +1,6 @@
-function a_hat = CA_polar_decoder(e_tilde, crc_polynomial_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2)
-% CA_POLAR_DECODER CRC-Aided (CA) polar decoder.
-%   a_hat = CA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2) 
+function a_hat = PC_polar_decoder(e_tilde, info_bit_pattern, PC_bit_pattern, PC_circular_buffer_length, rate_matching_pattern, mode, L, min_sum)
+% PCCA_POLAR_DECODER Parity Check and CRC-Aided (CA) polar decoder.
+%   a_hat = PCCA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, PC_circular_buffer_length, rate_matching_pattern, mode, L, min_sum, P2) 
 %   decodes the encoded LLR sequence e_tilde, in order to obtain the
 %   recovered information bit sequence a_hat.
 %
@@ -8,18 +8,20 @@ function a_hat = CA_polar_decoder(e_tilde, crc_polynomial_pattern, info_bit_patt
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
 %   ln(P(bit=0)/P(bit=1)).
 %
-%   crc_polynomial_pattern should be a binary row vector comprising P+1
-%   number of bits, each having the value 0 or 1. These bits parameterise a
-%   Cyclic Redundancy Check (CRC) comprising P bits. Each bit provides the
-%   coefficient of the corresponding element in the CRC generator
-%   polynomial. From left to right, the bits provide the coefficients for
-%   the elements D^P, D^P-1, D^P-2, ..., D^2, D, 1.
-%
 %   info_bit_pattern should be a row vector comprising N number of logical 
 %   elements, each having the value true or false. The number of elements 
-%   in info_bit_pattern having the value true should be K, where K = A+P. 
+%   in info_bit_pattern having the value true should be A+n_PC. 
 %   These elements having the value true identify the positions of the 
-%   information and CRC bits within the input to the polar encoder kernal.
+%   information and PC bits within the input to the polar encoder kernal.
+%
+%   PC_bit_pattern should be a row vector comprising N number of logical 
+%   elements, each having the value true or false. The number of elements 
+%   in PC_bit_pattern having the value true should be n_PC. 
+%   These elements having the value true identify the positions of the 
+%   PC bits within the input to the polar encoder kernal.
+%
+%   PC_circular_buffer_length should be an integer scalar. It specifies the
+%   length of the circular buffer used to generate the PC bits.
 %
 %   rate_matching_pattern should be a row vector comprising E number of
 %   integers, each having a value in the range 1 to N. Each integer
@@ -45,18 +47,10 @@ function a_hat = CA_polar_decoder(e_tilde, crc_polynomial_pattern, info_bit_patt
 %   better error correction capability than the min-sum, but it has higher
 %   complexity.
 %
-%   P2 should be a scalar integer. Although the CRC has P bits, only 
-%   P-min(P2,log2(L)) of these are used for error detection. The remaining 
-%   min(P2,log2(L)) of the CRC bits are used to improve error correction. 
-%   So the CRC needs to be min(P2,log2(L)) number of bits longer than CRCs 
-%   used in other codes, in order to achieve the same error detection 
-%   capability.
+%   a_hat will be a binary row vector comprising A number of bits, 
+%   each having the value 0 or 1.
 %
-%   a_hat will normally be a binary row vector comprising A number of bits, 
-%   each having the value 0 or 1. However, in cases where the CRC check 
-%   fails, a_hat will be an empty vector.
-%
-%   See also CA_POLAR_ENCODER
+%   See also PCCA_POLAR_ENCODER
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
@@ -69,8 +63,7 @@ function a_hat = CA_polar_decoder(e_tilde, crc_polynomial_pattern, info_bit_patt
 
 E = length(e_tilde);
 N = length(info_bit_pattern);
-K = sum(info_bit_pattern);
-P = length(crc_polynomial_pattern)-1;
+A = sum(info_bit_pattern & ~PC_bit_pattern);
 
 if log2(N) ~= round(log2(N))
     error('N should be a power of 2');
@@ -138,10 +131,20 @@ llrs_updated = [false(N,log2(N)),true(N,1)];
 PM = zeros(1,1,1);
 L_prime = 1;
 
+y = zeros(1,PC_circular_buffer_length);
+
+
+
 for i = 1:N
+    y = [y(1,2:end,:),y(1,1,:)];
+    
     update_llr(i,1);
     if bits_updated(i,1)
         PM = phi(PM, llrs(i,1,:), 0);
+    elseif PC_bit_pattern(i)
+        bits(i,1,:) = y(1,1,:);
+        PM = phi(PM, llrs(i,1,:), bits(i,1,:));
+        bits_updated(i,1) = true;
     else
         PM = cat(3,phi(PM, llrs(i,1,:), 0), phi(PM, llrs(i,1,:), 1));
         llrs = cat(3,llrs,llrs);
@@ -150,12 +153,16 @@ for i = 1:N
         bits(i,1,L_prime+1:2*L_prime) = 1;
         bits_updated(i,1) = true;
         
+        y = cat(3,y,y);
+        y(1,1,:) = xor(y(1,1,:),bits(i,1,:));
+        
         L_prime = size(bits,3);        
         if L_prime > L
             [~,max_indices] = sort(PM,3);
             PM = PM(:,:,max_indices(1:L));
             bits = bits(:,:,max_indices(1:L));
             llrs = llrs(:,:,max_indices(1:L));
+            y = y(:,:,max_indices(1:L));
             L_prime = L;
         end
     end
@@ -163,27 +170,11 @@ end
 
 %% Information bit extraction
 
-% If the CRC doesn't pass then return an empty vector.
-a_hat = [];
-
-% We use the list entry with a passing CRC that has the best metric. But we
-% only consider the best min(L,2^P2) entries in the list, to avoid
-% degrading the CRC's error detection capability.
+% We use the list entry that has the best metric
 [~,max_indices] = sort(PM,3);
-for list_index = 1:min(L,2^P2)
-    % Consider the next best list entry.
-    u_hat = bits(:,1,max_indices(list_index))';
-    
-    % Extract the information bits from the output of the polar decoder 
-    % kernal.
-    b_hat = u_hat(info_bit_pattern);
-    
-    % Check the CRC.
-    G_P = get_crc_generator_matrix(K,crc_polynomial_pattern);    
-    if isequal(mod(b_hat*G_P,2), zeros(1,P))
-        % If it passes, remove the CRC and output the information bits.
-        a_hat = b_hat(1:end-P);
-        return;
-    end
-end
+u_hat = bits(:,1,max_indices(1))';
+
+% Extract the information bits from the output of the polar decoder kernal.
+a_hat = u_hat(info_bit_pattern & ~PC_bit_pattern);
+
 end
