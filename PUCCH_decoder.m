@@ -1,8 +1,7 @@
-function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
-% PCBH_DECODER Public Broadcast Channel (PBCH) polar decoder from 3GPP New
-% Radio, as specified in Section 7.1 of TS 38.212 v1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
-%   a_hat = PBCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence 
+function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
+% PUCCH_DECODER Physical Uplink Control Channel (PUCCH) polar decoder from 3GPP New
+% Radio, as specified in Section 6.3.1 of TS 38.212 v1.1.1
+%   a_hat = PUCCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence 
 %   f_tilde, in order to obtain the recovered information bit sequence 
 %   a_hat.
 %
@@ -11,8 +10,7 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
 %   ln(P(bit=0)/P(bit=1)).
 %
 %   A should be an integer scalar. It specifies the number of bits in the
-%   information bit sequence, where A should be less than E and should be 
-%   no greater than 200.
+%   information bit sequence, where A should be less than E.
 %
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.
@@ -26,7 +24,7 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
 %   a_hat will be a binary row vector comprising A number of bits, each 
 %   having the value 0 or 1.
 %
-%   See also PBCH_ENCODER
+%   See also PUCCH_ENCODER
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
@@ -41,14 +39,13 @@ addpath 'components'
 
 E = length(f_tilde);
 
-% E is always 864 in PBCH
-if E ~= 864
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be 864.');
-end
+% NEED TO ADD SEGMENTATION
 
-% The CRC polynomial used in 3GPP PBCH and PDCCH channel is
-% D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
-crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+% NEED TO CONFIRM CRC
+
+% The CRC polynomial used in 3GPP PUCCH channel is
+% D^11 + D^10 + D^9 + D^5 + 1
+crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
 
 % The CRC has P bits. P-min(P2,log2(L)) of these are used for error
 % detection, where L is the list size. Meanwhile, min(P2,log2(L)) of
@@ -61,21 +58,48 @@ P2 = 3;
 % Determine the number of information and CRC bits.
 K = A+P;
 
+if K-3 < 12
+    error('polar_3gpp_matlab:UnsupportedBlockLength','K-3 should be no less than 12.');
+end
+
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
-N = get_3GPP_N(K,E,9); % n_max = 9 is used in PBCH and PDCCH channels
+N = get_3GPP_N(K,E,10); % n_max = 10 is used in PUCCH channels
 
-% Get the 3GPP CRC interleaver pattern.
-crc_interleaver_pattern = get_3GPP_crc_interleaver_pattern(K);
-
-% Get the 3GPP rate matching pattern.
+% Get a rate matching pattern.
 [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E);
 
-% Get the 3GPP sequence pattern.
+% Get a sequence pattern.
 Q_N = get_3GPP_sequence_pattern(N);
 
-% Get the 3GPP information bit pattern.
-info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
+% Perform channel deinterleaving
+channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E);
+e_tilde = zeros(1,E);
+e_tilde(channel_interleaver_pattern) = f_tilde;
 
-% Perform Distributed-CRC-Aided polar decoding.
-a_hat = DCA_polar_decoder(f_tilde,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+if K - 3 <= 22
+    % Use PC-polar
+    n_PC = 3;
+
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(K+n_PC, Q_N, rate_matching_pattern, mode);
+
+    % Get a PC bit pattern.
+    if E-K+3 > 192
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
+    else        
+        PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
+    end
+    
+    % Perform polar decoding.
+    a_hat = PCCA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,PC_bit_pattern,5,rate_matching_pattern,mode,L,min_sum,P2);
+else
+    % Use CA-polar
+    
+    % Get an information bit pattern.
+    info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
+    % Perform polar decoding.
+    a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+end   
+
+% SEGMENTATION

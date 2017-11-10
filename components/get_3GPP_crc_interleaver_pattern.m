@@ -9,7 +9,7 @@ function Pi = get_3GPP_crc_interleaver_pattern(K)
 %   K should be an integer scalar. It specifies the number of bits in the 
 %   information and CRC bit sequence. 
 %
-%   Pi will be an integer row vector, compring K unique elements in the
+%   Pi will be an integer row vector, comprising K unique elements in the
 %   range 1 to K. Each integer identifies which one of the K information or 
 %   CRC bits provides the corresponding interleaved bit. Interleaving
 %   can be implemented according to c = b(Pi), while

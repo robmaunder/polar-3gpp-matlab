@@ -1,9 +1,9 @@
-function info_bit_pattern = get_info_bit_pattern(K, Q_N, rate_matching_pattern)
+function info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern)
 % GET_INFO_BIT_PATTERN Obtain a generic information bit pattern.
-%   info_bit_pattern = GET_INFO_BIT_PATTERN(K, Q_N, rate_matching_pattern)
+%   info_bit_pattern = GET_INFO_BIT_PATTERN(I, Q_N, rate_matching_pattern)
 %   obtains the information bit pattern info_bit_pattern.
 %
-%   K should be an integer scalar. It specifies the number of bits in the 
+%   I should be an integer scalar. It specifies the number of bits in the 
 %   information and CRC bit sequence. It should be no greater than N or E.
 %
 %   Q_N should be a row vector comprising N number of unique integers in the 
@@ -19,7 +19,7 @@ function info_bit_pattern = get_info_bit_pattern(K, Q_N, rate_matching_pattern)
 %
 %   info_bit_pattern will be a row vector comprising N number of logical 
 %   elements, each having the value true or false. The number of elements 
-%   in info_bit_pattern having the value true will be K. These elements 
+%   in info_bit_pattern having the value true will be I. These elements 
 %   having the value true identify the positions of the information and 
 %   CRC bits (if any) within the input to the polar encoder kernal. The
 %   information bit arrangement can be achieved according to
@@ -44,16 +44,16 @@ end
 if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
-if K > N
-    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than N');
+if I > N
+    error('polar_3gpp_matlab:UnsupportedBlockLength','I should be no greater than N');
 end
-if K > E
-    error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no greater than E');
+if I > E
+    error('polar_3gpp_matlab:UnsupportedBlockLength','I should be no greater than E');
 end
 
 Q_Itmp_N = intersect(Q_N, rate_matching_pattern, 'stable');
 
-Q_I_N=Q_Itmp_N(end-K+1:end);
+Q_I_N=Q_Itmp_N(end-I+1:end);
 
 info_bit_pattern = false(1,N);
 info_bit_pattern(Q_I_N) = true;

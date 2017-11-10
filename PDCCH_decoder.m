@@ -1,8 +1,8 @@
-function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
-% PCBH_DECODER Public Broadcast Channel (PBCH) polar decoder from 3GPP New
-% Radio, as specified in Section 7.1 of TS 38.212 v1.0.1...
+function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum)
+% PDCCH_DECODER Physical Downlink Control Channel (PDCCH) polar decoder from 3GPP New
+% Radio, as specified in Section 7.3 of TS 38.212 v1.0.1...
 % http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
-%   a_hat = PBCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence 
+%   a_hat = PDCCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence 
 %   f_tilde, in order to obtain the recovered information bit sequence 
 %   a_hat.
 %
@@ -26,7 +26,7 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
 %   a_hat will be a binary row vector comprising A number of bits, each 
 %   having the value 0 or 1.
 %
-%   See also PBCH_ENCODER
+%   See also PDCCH_ENCODER
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
@@ -40,11 +40,6 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum)
 addpath 'components'
 
 E = length(f_tilde);
-
-% E is always 864 in PBCH
-if E ~= 864
-    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be 864.');
-end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
@@ -76,6 +71,8 @@ Q_N = get_3GPP_sequence_pattern(N);
 
 % Get the 3GPP information bit pattern.
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
+
+% NEED TO ADD RNTI SCRAMBLING
 
 % Perform Distributed-CRC-Aided polar decoding.
 a_hat = DCA_polar_decoder(f_tilde,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
