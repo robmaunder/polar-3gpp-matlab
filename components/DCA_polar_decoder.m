@@ -156,18 +156,18 @@ end
 % This is achieved according to the algorithm described in 
 % http://ieeexplore.ieee.org/abstract/document/7114328/
 
-global llrs
-global llrs_updated
-global bits
-global bits_updated
+global bits % Matrix to store bit throughout the polar code graph
+global bits_updated % Matrix to identify which bits in the polar code graph have been calculated so far
+global llrs % Matrix to store LLRs throughout the polar code graph
+global llrs_updated % Matrix to identify which LLRs in the polar code graph have been calculated so far
 
-bits = zeros(N, log2(N)+1);
-bits_updated = [~info_bit_pattern',false(N,log2(N))];
-llrs = [zeros(N,log2(N)),d_tilde'];
-llrs_updated = [false(N,log2(N)),true(N,1)];
+bits = zeros(N, log2(N)+1); % Initialse all bits to zero. The left-most column corresponds to the decoded information, CRC and frozen bits
+bits_updated = [~info_bit_pattern',false(N,log2(N))]; % The zero values that have initialised the frozen bits are known to be correct
+llrs = [zeros(N,log2(N)),d_tilde']; % Initialse the LLRs. The right-most column corresponds to the received LLRS
+llrs_updated = [false(N,log2(N)),true(N,1)]; % The received LLRs have been updated.
 
-PM = zeros(1,1,1);
-L_prime = 1;
+PM = zeros(1,1,1); % Initialise the path metrics
+L_prime = 1; % Initialise the list size to 1. This will grow as the decoding proceeds
 
 % We will calculate the CRC checksums alongside the SCL decoding process.
 crc_checksums = zeros(P,1);
@@ -181,12 +181,16 @@ i2=1;
 % assocated with at least one of the CRC bits.
 a_hat = [];
 
+% Consider each bit in turn
 for i = 1:N
+    % Make recursive function calls to perform the XOR, g and f functions
+    % necessary to obtain the corresponding LLR
     update_llr(i,1);
-    if bits_updated(i,1)
-        PM = phi(PM, llrs(i,1,:), 0);
-        
-    else
+    
+    if info_bit_pattern(i) == 0 % Frozen bit
+        PM = phi(PM, llrs(i,1,:), 0); 
+    else % Information or CRC bit
+        % Double the list size, using 0-valued bits for the first half and 1-valued bits for the other half
         PM = cat(3,phi(PM, llrs(i,1,:), 0), phi(PM, llrs(i,1,:), 1));
         llrs = cat(3,llrs,llrs);
         bits = cat(3,bits,bits);
@@ -202,13 +206,13 @@ for i = 1:N
         % with the previous CRC bits have failed.
         crc_okay = cat(3,crc_okay,crc_okay);
               
+        % If the list size has grown above L, then we need to find and keep only the best L entries in the list
         L_prime = size(bits,3);        
         if L_prime > L
             [~,max_indices] = sort(PM,3);
             PM = PM(:,:,max_indices(1:L));
             bits = bits(:,:,max_indices(1:L));
             llrs = llrs(:,:,max_indices(1:L));
-            
             crc_checksums = crc_checksums(:,:,max_indices(1:L));
             crc_okay = crc_okay(:,:,max_indices(1:L));
             L_prime = L;
@@ -240,6 +244,7 @@ for i = 1:N
             return;
         end
         
+        % Increment the counter of information and CRC bits
         i2 = i2+1;
     end
 end

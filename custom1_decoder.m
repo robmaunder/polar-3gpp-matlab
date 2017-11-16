@@ -65,6 +65,11 @@ K = A+P; % Required for CA_polar_encoder, DCA_polar_encoder, PCCA_polar_encoder
 N = get_3GPP_N(K,E,inf); % Not generally compatible with get_3GPP_sequence_pattern
 % N = 2^ceil(log2(E)); % Required for BIVS, BIVP, NATS or NATP rate matching
 
+% Needed for compatibility with get_3GPP_rate_matching_pattern
+if N < 32
+    N = 32;
+end
+
 % Get a CRC interleaver pattern.
 % crc_interleaver_pattern = get_3GPP_crc_interleaver_pattern(K);
 

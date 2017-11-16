@@ -37,8 +37,7 @@ for i=0:A_prime-A-1
     a_prime(i+1) = 0;
 end
 for i=A_prime-A:A_prime-1
-%    a_prime(i+1) = a(i+1); % This is what it says in TS38.212 V1.1.1, but it doesn't work for even A    
-    a_prime(i+1) = a(i-(A_prime-A)+1); % This fixes the problem
+    a_prime(i+1) = a(i-(A_prime-A)+1);
 end
 
 segmentation_pattern = zeros(C,A_prime/C);
