@@ -1,4 +1,4 @@
-function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum)
+function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 % PDCCH_DECODER Physical Downlink Control Channel (PDCCH) polar decoder from 3GPP New
 % Radio, as specified in Section 7.3 of TS 38.212 v1.0.1...
 % http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
@@ -23,6 +23,10 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum)
 %   better error correction capability than the min-sum, but it has higher
 %   complexity.
 %
+%   RNTI should be a binary row vector comprising 16 bits, each having the
+%   value 0 or 1. If this parameter is omitted, then ones(1,16) will be
+%   used for the RNTI.
+%
 %   a_hat will be a binary row vector comprising A number of bits, each 
 %   having the value 0 or 1.
 %
@@ -38,6 +42,13 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum)
 % more details.
 
 addpath 'components'
+
+if nargin == 4
+    RNTI = ones(1,16);
+end
+if length(RNTI) ~= 16
+    error('RNTI length should be 16');
+end
 
 E = length(f_tilde);
 
@@ -72,7 +83,5 @@ Q_N = get_3GPP_sequence_pattern(N);
 % Get the 3GPP information bit pattern.
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
 
-% NEED TO ADD RNTI SCRAMBLING
-
 % Perform Distributed-CRC-Aided polar decoding.
-a_hat = DCA_polar_decoder(f_tilde,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+a_hat = DSCA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);

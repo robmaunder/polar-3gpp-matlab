@@ -1,4 +1,4 @@
-function f = PDCCH_encoder(a, E)
+function f = PDCCH_encoder(a, E, RNTI)
 % PDCCH_ENCODER Physical Downlink Control Channel (PDCCH) polar encoder from 3GPP New
 % Radio, as specified in Section 7.3 of TS 38.212 v1.0.1...
 % http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
@@ -10,6 +10,10 @@ function f = PDCCH_encoder(a, E)
 %
 %   E should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where E should greater than A.
+%
+%   RNTI should be a binary row vector comprising 16 bits, each having the
+%   value 0 or 1. If this parameter is omitted, then ones(1,16) will be
+%   used for the RNTI.
 %
 %   f will be a binary row vector comprising E number of bits, each having
 %   the value 0 or 1.
@@ -26,6 +30,14 @@ function f = PDCCH_encoder(a, E)
 % more details.
 
 addpath 'components'
+
+if nargin == 2
+    RNTI = ones(1,16);
+end
+if length(RNTI) ~= 16
+    error('RNTI length should be 16');
+end
+
 
 A = length(a);
 
@@ -53,7 +65,5 @@ Q_N = get_3GPP_sequence_pattern(N);
 % Get the 3GPP information bit pattern.
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
 
-% NEED TO ADD RNTI SCRAMBLING
-
 % Perform Distributed-CRC-Aided polar encoding.
-f = DCA_polar_encoder(a,crc_polynomial_pattern,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
+f = DSCA_polar_encoder(a,crc_polynomial_pattern, RNTI, crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
