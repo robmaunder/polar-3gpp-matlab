@@ -5,13 +5,17 @@ function f = PBCH_encoder(a, E)
 %   f = PBCH_ENCODER(a, E) encodes the information bit sequence a, in
 %   order to obtain the encoded bit sequence e.
 %
-%   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1. A should be in the range 1 to 200.
+%   a should be a binary row vector comprising 32 bits, each
+%   having the value 0 or 1. Note that this code does not perform the 
+%   scrambling of Section 7.1.1 in TS38.212 V1.1.2, since this depends on 
+%   several higher-layer parameters. But scrambling can be implemented
+%   externally to this code.
 %
-%   E should be an integer scalar. It specifies the number of bits in the
-%   encoded bit sequence, where E should greater than A.
+%   E should be 864. It specifies the number of bits in the
+%   encoded bit sequence. Since there is only one valid value for this 
+%   parameter, it can be omitted.
 %
-%   f will be a binary row vector comprising E number of bits, each having
+%   f will be a binary row vector comprising 864 bits, each having
 %   the value 0 or 1.
 %
 %   See also PBCH_DECODER
@@ -27,6 +31,12 @@ function f = PBCH_encoder(a, E)
 
 addpath 'components'
 
+A = length(a);
+
+% A is always 32 in PBCH
+if A ~= 32
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be 32.');
+end
 % E is always 864 in PBCH
 if nargin<2
     E = 864;
@@ -34,8 +44,6 @@ end
 if E ~= 864
     error('polar_3gpp_matlab:UnsupportedBlockLength','E should be 864.');
 end
-
-A = length(a);
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1

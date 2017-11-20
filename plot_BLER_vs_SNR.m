@@ -134,7 +134,7 @@ for E_index = 1:length(E)
                 
                 % Generate a random block of bits
                 a = round(rand(1,A));
-                
+                                
                 % Perform polar encoding
                 f = feval([code,'_encoder'], a, E(E_index));
                 

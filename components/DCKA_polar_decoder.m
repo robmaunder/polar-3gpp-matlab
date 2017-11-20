@@ -1,6 +1,6 @@
-function a_hat = DSCA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambling_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2)
-% DSCA_POLAR_DECODER Distributed-and-Scrambled-CRC-Aided (DSCA) polar decoder.
-%   a_hat = DSCA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2) 
+function a_hat = DCKA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2, a_tilde)
+% DCKA_POLAR_DECODER Distributed-CRC-and-Known-bit-Aided (DCKA) polar decoder.
+%   a_hat = DCKA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2) 
 %   decodes the encoded LLR sequence e_tilde, in order to obtain the
 %   recovered information bit sequence a_hat.
 %
@@ -14,11 +14,6 @@ function a_hat = DSCA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambl
 %   coefficient of the corresponding element in the CRC generator
 %   polynomial. From left to right, the bits provide the coefficients for
 %   the elements D^P, D^P-1, D^P-2, ..., D^2, D, 1.
-%
-%   crc_scrambling_pattern should be a binary row vector, with each element
-%   having the value 0 or 1. This vector is right-aligned with the
-%   vector of CRC bits (before CRC interleaving in the encoder), then 
-%   applied using XOR operations.
 %
 %   crc_interleaver_pattern should be a row vector comprising K number of
 %   integers, each having a unique value in the range 1 to K. Each integer
@@ -62,11 +57,17 @@ function a_hat = DSCA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambl
 %   used in other codes, in order to achieve the same error detection 
 %   capability.
 %
+%   a_tilde should be a row vector comprising A elements. Elements having
+%   the value 0 or 1 indicate that the receiver has prior knowledge that
+%   the corresponding information bit has the corresponding value. Elements
+%   having any other value indicate that the receiver does not have prior
+%   knowledge of the value of the corresponding information bit.
+%
 %   a_hat will normally be a binary row vector comprising A number of bits, 
 %   each having the value 0 or 1. However, in cases where the CRC check 
 %   fails, a_hat will be an empty vector.
 %
-%   See also DSCA_POLAR_ENCODER
+%   See also DCA_POLAR_ENCODER
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
@@ -107,8 +108,8 @@ elseif strcmp(mode,'shortening')
 else
     error('Unsupported mode');
 end
-if P < length(crc_scrambling_pattern)
-    error('polar_3gpp_matlab:UnsupportedBlockLength','P should be no less than the length of the scrambing pattern');
+if length(a_tilde) ~= A
+    error('a_tilde should contain A number of elements.');
 end
 
 % This global variable is used by the minstar and phi functions.
@@ -136,9 +137,6 @@ last_one_index = zeros(1,P);
 for p = 1:P
     last_one_index(p) = find(G_P3(:,p) == 1, 1, 'last');
 end
-
-% Extend the scrambling pattern to match the length of the CRC
-extended_crc_scrambling_pattern = [zeros(1,P-length(crc_scrambling_pattern)), crc_scrambling_pattern];
 
 %% Rate matching
 if strcmp(mode,'repetition')
@@ -200,49 +198,64 @@ for i = 1:N
     
     if info_bit_pattern(i) == 0 % Frozen bit
         PM = phi(PM, llrs(i,1,:), 0); 
-    else % Information or CRC bit
-        % Double the list size, using 0-valued bits for the first half and 1-valued bits for the other half
-        PM = cat(3,phi(PM, llrs(i,1,:), 0), phi(PM, llrs(i,1,:), 1));
-        llrs = cat(3,llrs,llrs);
-        bits = cat(3,bits,bits);
-        bits(i,1,1:L_prime) = 0;
-        bits(i,1,L_prime+1:2*L_prime) = 1;
-        bits_updated(i,1) = true;
-        
-        % We use the interleaved CRC generator matrix to update the CRC 
-        % check sums whenever an information or CRC bit adopts a value of
-        % 1.
-        crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
-        % We need to keep track of whether any of the checks associated 
-        % with the previous CRC bits have failed.
-        crc_okay = cat(3,crc_okay,crc_okay);
-              
-        % If the list size has grown above L, then we need to find and keep only the best L entries in the list
-        L_prime = size(bits,3);        
-        if L_prime > L
-            [~,max_indices] = sort(PM,3);
-            PM = PM(:,:,max_indices(1:L));
-            bits = bits(:,:,max_indices(1:L));
-            llrs = llrs(:,:,max_indices(1:L));
-            crc_checksums = crc_checksums(:,:,max_indices(1:L));
-            crc_okay = crc_okay(:,:,max_indices(1:L));
-            L_prime = L;
-        end
+    else % Information or CRC bit        
+        if crc_interleaver_pattern(i2) <= A && a_tilde(crc_interleaver_pattern(i2)) == 0 % Information bit with known value of 0
+            PM = phi(PM, llrs(i,1,:), 0);         
+            bits_updated(i,1) = true;
+        elseif crc_interleaver_pattern(i2) <= A && a_tilde(crc_interleaver_pattern(i2)) == 1 % Information bit with known value of 1
+            PM = phi(PM, llrs(i,1,:), 1); 
+            bits(i,1,:) = 1;
+            bits_updated(i,1) = true;        
+            % We use the interleaved CRC generator matrix to update the CRC 
+            % check sums whenever an information bit adopts a value of 1.
+            crc_checksums = mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2);
+            
+        else
+           % Double the list size, using 0-valued bits for the first half and 1-valued bits for the other half
+            PM = cat(3,phi(PM, llrs(i,1,:), 0), phi(PM, llrs(i,1,:), 1));
+            
+            llrs = cat(3,llrs,llrs);
+            bits = cat(3,bits,bits);
+            bits(i,1,1:L_prime) = 0;
+            bits(i,1,L_prime+1:2*L_prime) = 1;
+            bits_updated(i,1) = true;
 
+            % We use the interleaved CRC generator matrix to update the CRC 
+            % check sums whenever an information or CRC bit adopts a value of
+            % 1.
+            crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
+            % We need to keep track of whether any of the checks associated 
+            % with the previous CRC bits have failed.
+            crc_okay = cat(3,crc_okay,crc_okay);
+
+            % If the list size has grown above L, then we need to find and keep only the best L entries in the list
+            L_prime = size(bits,3);        
+            if L_prime > L
+                [~,max_indices] = sort(PM,3);
+                PM = PM(:,:,max_indices(1:L));
+                bits = bits(:,:,max_indices(1:L));
+                llrs = llrs(:,:,max_indices(1:L));
+                crc_checksums = crc_checksums(:,:,max_indices(1:L));
+                crc_okay = crc_okay(:,:,max_indices(1:L));
+                L_prime = L;
+            end
+           
+        end
+        
+        
         % We check the corresponding CRC checksums whenever we reach the
         % last 1-valued bit in a column of the interleaved CRC generator
         % matrix.
         check_crc_bits = find(last_one_index == i2);
         for crc_bit_index = 1:length(check_crc_bits)
             for list_index = 1:L_prime
-                % The checksum should equal the value of the corresponding 
-                % CRC scrambling pattern bit. If not, then the CRC
+                % The checksum should equal 0. If it equals 1, then the CRC
                 % check has failed. Note that we should not prune these
                 % entries from the list, even though we know that they will
                 % fail the CRC. We should continue the decoding of this
                 % list entries, otherwise we will damage the error
                 % detection capability of the CRC.
-                if crc_checksums(check_crc_bits(crc_bit_index),1,list_index) ~= extended_crc_scrambling_pattern(check_crc_bits(crc_bit_index))
+                if crc_checksums(check_crc_bits(crc_bit_index),1,list_index) == 1
                     % We keep track of the failing check.
                     crc_okay(1,1,list_index) = false;
                 end
@@ -258,7 +271,7 @@ for i = 1:N
         
         % Increment the counter of information and CRC bits
         i2 = i2+1;
-    end
+    end    
 end
 
 %% Information bit extraction
@@ -279,7 +292,7 @@ for list_index = 1:min(L,2^P2)
         % kernal.
         c_hat = u_hat(info_bit_pattern);
 
-        % Deinterleave the information and CRC bits.
+        % Deinlterleave the information and CRC bits.
         b_hat(crc_interleaver_pattern) = c_hat;
         
         % Remove the CRC and output the information bits.

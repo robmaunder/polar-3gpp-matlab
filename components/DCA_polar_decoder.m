@@ -267,7 +267,7 @@ for list_index = 1:min(L,2^P2)
         % kernal.
         c_hat = u_hat(info_bit_pattern);
 
-        % Deinlterleave the information and CRC bits.
+        % Deinterleave the information and CRC bits.
         b_hat(crc_interleaver_pattern) = c_hat;
         
         % Remove the CRC and output the information bits.
