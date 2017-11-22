@@ -86,14 +86,14 @@ rng(seed);
 % Create a figure to plot the results.
 figure
 axes1 = axes('YScale','log');
-title([code, ' polar code, A = ',num2str(A),', L = ',num2str(L),' QPSK AWGN']);
+title([code, ' polar code, A = ',num2str(A),', L = ',num2str(L),', QPSK, AWGN']);
 ylabel('BLER');
 xlabel('E_s/N_0 [dB]');
 ylim([target_BLER,1]);
 hold on
 drawnow
 
-% Consider each coding rate in turn
+% Consider each encoded block length in turn
 for E_index = 1:length(E)
 
     % Create the plot
@@ -117,7 +117,7 @@ for E_index = 1:length(E)
     EsN0 = EsN0_start(E_index);
     
     % Skip any encoded block lengths that generate errors
-   try
+    try
         % Loop over the SNRs
         while BLER > target_BLER
             
