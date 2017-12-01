@@ -43,6 +43,10 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 
 addpath 'components'
 
+if A > 140
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
+end
+
 if nargin == 4
     RNTI = ones(1,16);
 end

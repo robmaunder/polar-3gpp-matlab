@@ -41,6 +41,11 @@ end
 
 A = length(a);
 
+if A > 140
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
+end
+
+
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
 crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
