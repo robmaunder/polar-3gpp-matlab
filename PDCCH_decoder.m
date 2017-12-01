@@ -84,4 +84,4 @@ Q_N = get_3GPP_sequence_pattern(N);
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
 
 % Perform Distributed-CRC-Aided polar decoding.
-a_hat = DSCA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+a_hat = DS1CA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
