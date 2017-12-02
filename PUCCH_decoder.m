@@ -127,26 +127,32 @@ else % Use CA-polar
     info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
         
     if C == 2
-        a_hat = zeros(1,A);
         
         info_bit_pattern2 = info_bit_pattern;
         if mod(A,2) ~= 0 % If a zero was prepended to the first segment during encoding
             % Treat the first information bit as a frozen bit
-            info_bit_pattern2(find(info_bit_pattern == 1,1,first)) = 0;
+            info_bit_pattern2(find(info_bit_pattern == 1,1,'first')) = 0;
         end
         
         % Perform channel interleaving for first segment.
         e_tilde = zeros(1,G/C);        
         e_tilde(channel_interleaver_pattern) = f_tilde(1:G/C);
-        
+                
         % Perform polar decoding for first segment.
-        a_hat(1:floor(A/C)) = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern,mode,L,min_sum,P2);
+        a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern,mode,L,min_sum,P2);
         
-        % Perform channel interleaving for second segment.
-        e_tilde(channel_interleaver_pattern) = f_tilde(G/C+1:G);
+        if length(a_hat) == floor(A/C)
         
-        % Perform polar decoding for second segment.
-        a_hat(floor(A/C)+1:A) = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+            % Perform channel interleaving for second segment.
+            e_tilde(channel_interleaver_pattern) = f_tilde(G/C+1:G);
+
+            % Perform polar decoding for second segment.
+            a_hat = [a_hat, CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2)];
+        end
+        
+        if length(a_hat) ~= A
+            a_hat = [];
+        end
     else
         % Perform channel interleaving
         e_tilde = zeros(1,G);        
