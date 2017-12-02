@@ -38,13 +38,17 @@ addpath 'components'
 
 E = length(f_tilde);
 
-% The CRC polynomial used in 3GPP PBCH and PDCCH channel is
+% The CRC polynomial used with DCA-polar in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
-crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
+% crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
 
-% The CRC polynomial used in 3GPP PUCCH channel is
+% The CRC polynomial used with CA-polar in 3GPP PUCCH channel is
 % D^11 + D^10 + D^9 + D^5 + 1
-% crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
+crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
+
+% The CRC polynomial used with PCCA-polar in 3GPP PUCCH channel is
+% D^6 + D^5 + 1
+% crc_polynomial_pattern = [1 1 0 0 0 0 1];
 
 % The CRC has P bits. P-min(P2,log2(L)) of these are used for error
 % detection, where L is the list size. Meanwhile, min(P2,log2(L)) of
