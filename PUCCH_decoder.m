@@ -64,8 +64,7 @@ else % Use CA-polar
     else
         % Use one segment
         C = 1;
-    end
-    
+    end  
 end
 
 if G > 8192*C

@@ -78,7 +78,6 @@ Q_N = get_3GPP_sequence_pattern(N);
 % Get the channel interleaving pattern
 channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(G/C);
 
-
 if A <= 19 % Use PCCA-polar
     % We use 3 PC bits
     n_PC = 3;
@@ -99,15 +98,13 @@ if A <= 19 % Use PCCA-polar
     % Perform channel interleaving.
     f = e(channel_interleaver_pattern);
     
-    
 else % Use CA-polar
     
     % Get an information bit pattern.
     info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
     
     if C == 2
-        f = zeros(1,G);
-        
+
         info_bit_pattern2 = info_bit_pattern;
         if mod(A,2) ~= 0 % Prepend a zero to the first segment during encoding
             % Treat the first information bit as a frozen bit
@@ -115,44 +112,17 @@ else % Use CA-polar
         end
         
         % Perform polar encoding for first segment.
-        e1 = CA_polar_encoder(a(1:floor(A/C)),crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern);
+        e = CA_polar_encoder(a(1:floor(A/C)),crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern);
         
         % Perform channel interleaving for first segment.
-        f(1:G/C) = e1(channel_interleaver_pattern);
-
+        f = e(channel_interleaver_pattern);
         
         % Perform polar encoding for second segment.
-        e2 = CA_polar_encoder(a(floor(A/C)+1:A),crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
+        e = CA_polar_encoder(a(floor(A/C)+1:A),crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
         
         % Perform channel interleaving for second segment.
-        f(G/C+1:G) = e2(channel_interleaver_pattern);
+        f = [f,e(channel_interleaver_pattern)];
         
-        
-        
-        
-        segmentation_pattern = get_segmentation_pattern(A, C);
-        concatenation_pattern = get_concatenation_pattern(G, C);
-        
-        f_prime = zeros(1,G);
-        for r = 1:C
-            a_prime = zeros(1,size(segmentation_pattern,2));
-            a_prime(segmentation_pattern(r,:)>0) = a(segmentation_pattern(r,segmentation_pattern(r,:)>0));
-            
-            e_prime = CA_polar_encoder(a_prime,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
-            
-            
-            f_prime(concatenation_pattern(r,:)) = e_prime(channel_interleaver_pattern);
-            
-            
-            
-        end            
-        
-             if ~isequal(f,f_prime)
-                [f;f_prime]
-
-                error('Rob');
-            end
-       
     else
         % Perform polar encoding.
         e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
