@@ -77,12 +77,6 @@ a2((1:A)<=P) = ~a2((1:A)<=P); % Toggle the first P bits to model a CRC that is i
 crc_bits = mod(a2*G_P,2);
 crc_bits((A+1:A+P) <= P) = ~crc_bits((A+1:A+P) <= P);
 
-crc_bits2 = calculate_crc_ones(a,crc_polynomial_pattern);
-
-if ~isequal(crc_bits,crc_bits2)
-    error('Rob');
-end
-
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
 
