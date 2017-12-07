@@ -42,7 +42,10 @@ end
 A = length(a);
 
 if A > 140
-    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140 in PDDCH.');
+end
+if isempty(find([144, 288, 576, 1152]==E,1))
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be selected from the set {144, 288, 576, 1152} in PDDCH.');
 end
 
 

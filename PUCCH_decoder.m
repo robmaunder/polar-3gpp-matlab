@@ -70,7 +70,10 @@ end
 if G > 8192*C
     error('polar_3gpp_matlab:UnsupportedBlockLength','G is too long.');
 end
-    
+if isempty(find(unique([unique(16*(1:2)'*(1:12));unique(24*(4:14)'*[1,2,3,4,5,6,8,9,10,12,15,16]);unique(24*(4:14)'*1./[2,4])])==G,1))
+    error('polar_3gpp_matlab:UnsupportedBlockLength','G should be selected from the set supported in PDDCH.');
+end
+  
 
 
 % The CRC has P bits. P-min(P2,log2(L)) of these are used for error

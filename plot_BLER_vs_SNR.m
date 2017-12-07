@@ -70,12 +70,12 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 if nargin == 0
     code = 'custom1';
     A = 24;
-    E = round(A./[0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250]);
+    E = [36 54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
     min_sum = true;
     target_block_errors = 10;
     target_BLER = 1e-1;
-    EsN0_start = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
+    EsN0_start = -10*ones(size(E));
     EsN0_delta = 0.5;
     seed = 0;
 end
@@ -130,7 +130,7 @@ for E_index = 1:length(E)
             EsN0s(end+1) = EsN0;
             
             % Continue the simulation until enough block errors have been simulated
-            while block_error_counts(end) < target_block_errors
+            while block_error_counts(end) < target_block_errors 
                 
                 % Generate a random block of bits
                 a = round(rand(1,A));
