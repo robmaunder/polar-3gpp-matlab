@@ -40,7 +40,9 @@ end
 
 
 A = length(a);
-
+if A < 12
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 12 in PDDCH.');
+end    
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140 in PDDCH.');
 end
