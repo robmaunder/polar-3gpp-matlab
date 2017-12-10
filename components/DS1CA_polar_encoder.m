@@ -71,11 +71,8 @@ if P < length(crc_scrambling_pattern)
 end
 
 % Generate the CRC bits.
-G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
-a2 = a;
-a2((1:A)<=P) = ~a2((1:A)<=P); % Toggle the first P bits to model a CRC that is initialised with all ones
-crc_bits = mod(a2*G_P,2);
-crc_bits((A+1:A+P) <= P) = ~crc_bits((A+1:A+P) <= P);
+G_P = get_crc_generator_matrix(A+P,crc_polynomial_pattern);
+crc_bits = mod([ones(1,P),a]*G_P,2);
 
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
