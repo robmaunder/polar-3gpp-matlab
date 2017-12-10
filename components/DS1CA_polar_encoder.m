@@ -79,7 +79,7 @@ crc_bits((A+1:A+P) <= P) = ~crc_bits((A+1:A+P) <= P);
 
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
-
+ 
 % Append the scrambled CRC bits to the information bits.
 b = [a, scrambled_crc_bits];
 

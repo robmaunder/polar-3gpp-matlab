@@ -136,7 +136,7 @@ last_one_index = zeros(1,P);
 for p = 1:P
     last_one_index(p) = find(G_P3(:,p) == 1, 1, 'last');
 end
-
+ 
 % Extend the scrambling pattern to match the length of the CRC
 extended_crc_scrambling_pattern = [zeros(1,P-length(crc_scrambling_pattern)), crc_scrambling_pattern];
 
