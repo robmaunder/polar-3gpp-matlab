@@ -41,6 +41,8 @@ G = length(f_tilde);
 
 if A < 12
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 12.');
+elseif A > 1706
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 1706.');    
 elseif A <= 19 % Use PCCA-polar
     % The CRC polynomial used with PCCA-polar in 3GPP PUCCH channel is
     % D^6 + D^5 + 1
