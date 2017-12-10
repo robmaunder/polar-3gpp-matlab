@@ -69,8 +69,8 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 % Default values
 if nargin == 0
     code = 'custom1';
-    A = 24;
-    E = [36 54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
+    A = 32;
+    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
     min_sum = true;
     target_block_errors = 10;

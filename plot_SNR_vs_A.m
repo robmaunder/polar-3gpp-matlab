@@ -69,8 +69,8 @@ function plot_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER,
 % Default values
 if nargin == 0
     code = 'custom1';
-    A = 16:16:1024;
-    E = [36 54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
+    A = [8:15, 16:2:30, 32:4:60, 64:8:120, 128:16:240, 256:32:480, 512:64:1024];
+    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
     min_sum = true;
     target_block_errors = 10;
