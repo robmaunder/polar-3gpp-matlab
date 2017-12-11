@@ -120,7 +120,7 @@ approx_minstar=min_sum;
 % Get the CRC generator matrix, which has dimensions A+P by P.
 G_P = get_crc_generator_matrix(A+P,crc_polynomial_pattern);
 
-% Extende the CRC generator matrix by append an identity matrix to 
+% Extend the CRC generator matrix by append an identity matrix to 
 % represent the CRC bits, giving dimenstions K by P.
 G_P2 = [G_P(P+1:end,:);eye(P)];
 
