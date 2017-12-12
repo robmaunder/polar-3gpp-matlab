@@ -5,10 +5,11 @@ function f = PUCCH_encoder(a, G)
 %   order to obtain the encoded bit sequence f.
 %
 %   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1.
+%   having the value 0 or 1, where A should be in the range 12 to 1706.
 %
-%   E should be an integer scalar. It specifies the number of bits in the
-%   encoded bit sequence, where G should be greater than A.
+%   G should be an integer scalar. It specifies the number of bits in the
+%   encoded bit sequence, where G should be no greater than 8192 if A<360
+%   and no greater than 16384 if A>=360.
 %
 %   f will be a binary row vector comprising G number of bits, each having
 %   the value 0 or 1.

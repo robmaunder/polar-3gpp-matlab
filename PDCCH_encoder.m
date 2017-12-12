@@ -6,7 +6,7 @@ function f = PDCCH_encoder(a, E, RNTI)
 %   order to obtain the encoded bit sequence e.
 %
 %   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1. A should be in the range 1 to 200.
+%   having the value 0 or 1. A should be in the range 1 to 140.
 %
 %   E should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where E should greater than A.
@@ -39,11 +39,9 @@ if length(RNTI) ~= 16
 end
 
 
+
 A = length(a);
 
-if A < 12
-    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 12.');
-end
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
 end
@@ -54,8 +52,14 @@ end
 crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
 P = length(crc_polynomial_pattern)-1;
 
-% Determine the number of information and CRC bits.
-K = A+P; 
+% If a contains fewer than 12 bits, increase its length to 12 by padding it 
+% with zeros
+if A < 12
+    a = [a,zeros(1,12-length(a))];
+    K = 12+P;
+else
+    K = A+P;     
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.

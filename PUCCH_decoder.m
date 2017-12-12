@@ -7,10 +7,11 @@ function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 %
 %   f_tilde should be a real row vector comprising G number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
-%   ln(P(bit=0)/P(bit=1)).
+%   ln(P(bit=0)/P(bit=1)), where G should be no greater than 8192 if A<360
+%   and no greater than 16384 if A>=360.
 %
 %   A should be an integer scalar. It specifies the number of bits in the
-%   information bit sequence, where A should be less than G.
+%   information bit sequence, where A should be in the range 12 to 1706.
 %
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.

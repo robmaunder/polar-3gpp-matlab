@@ -11,8 +11,7 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 %   ln(P(bit=0)/P(bit=1)).
 %
 %   A should be an integer scalar. It specifies the number of bits in the
-%   information bit sequence, where A should be less than E and should be 
-%   no greater than 200.
+%   information bit sequence, where A should be in the range 1 to 140.
 %
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.
@@ -43,9 +42,6 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 
 addpath 'components'
 
-if A < 12
-    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 12.');
-end
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
 end
@@ -72,7 +68,12 @@ P = length(crc_polynomial_pattern)-1;
 P2 = 3;
 
 % Determine the number of information and CRC bits.
-K = A+P;
+if A < 12
+    % a has been padded with zeros to increase its length to 12
+    K = 12+P;
+else
+    K = A+P;
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
@@ -90,5 +91,18 @@ Q_N = get_3GPP_sequence_pattern(N);
 % Get the 3GPP information bit pattern.
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
 
-% Perform Distributed-CRC-Aided polar decoding.
-a_hat = DS1CA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+if A < 12
+    % We know that a has been padded with zeros
+    a_tilde = [NaN(1,A),zeros(1,12-A)];
+    
+    % Perform Distributed-CRC-Aided polar decoding.
+    a_hat = DS1CKA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2,a_tilde);
+    
+    if ~isempty(a_hat)
+        % Remove the padding
+        a_hat = a_hat(1:A);
+    end    
+else
+    % Perform Distributed-CRC-Aided polar decoding.
+    a_hat = DS1CA_polar_decoder(f_tilde,crc_polynomial_pattern,RNTI,crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2);
+end
