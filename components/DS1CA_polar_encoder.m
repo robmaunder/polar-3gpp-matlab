@@ -40,7 +40,7 @@ function e = DS1CA_polar_encoder(a, crc_polynomial_pattern, crc_scrambling_patte
 %
 %   See also DS1CA_POLAR_DECODER
 %
-% Copyright © 2017 Robert G. Maunder. This program is free software: you 
+% Copyright ? 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
 % Public License as published by the Free Software Foundation, either 
 % version 3 of the License, or (at your option) any later version. This 
@@ -71,8 +71,11 @@ if P < length(crc_scrambling_pattern)
 end
 
 % Generate the CRC bits.
-G_P = get_crc_generator_matrix(A+P,crc_polynomial_pattern);
-crc_bits = mod([ones(1,P),a]*G_P,2);
+G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
+a2 = a;
+a2((1:A)<=P) = ~a2((1:A)<=P); % Toggle the first P bits to model a CRC that is initialised with all ones
+crc_bits = mod(a2*G_P,2);
+crc_bits((A+1:A+P) <= P) = ~crc_bits((A+1:A+P) <= P);
 
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
