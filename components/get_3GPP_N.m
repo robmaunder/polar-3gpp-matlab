@@ -33,13 +33,9 @@ else
 end
 
 R_min=1/8;
+n_min=5;
 n_2=ceil(log2(K/R_min));
-n=min([n_1,n_2,n_max]);
-
-% The following line is not stated in 3GPP TS 38.212 V1.0.1, but it can
-% be used to make short block lengths compatible with 3GPP rate matching, 
-% which assumes a minimum n of 5.
-% n = max(n,5); 
+n=max(n_min,min([n_1,n_2,n_max]));
 
 N=2^n;
 end
