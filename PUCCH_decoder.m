@@ -1,6 +1,16 @@
 function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
-% PUCCH_DECODER Physical Uplink Control Channel (PUCCH) polar decoder from 3GPP New
-% Radio, as specified in Section 6.3.1 of TS 38.212 v1.1.1
+% PUCCH_DECODER Polar decoder for the Physical Uplink Control Channel (PUCCH) and the
+% Physical Uplink Shared Channel (PUSCH) of 3GPP New Radio, as defined in
+% Section 6.3 of TS38.212 V1.2.1. Implements the code block segmentation and
+% Cyclic Redudancy Check (CRC) attachment of Sections 6.3.1.2.1 and 6.3.2.2.1,
+% the channel coding of Sections 6.3.1.3.1 and 6.3.2.3.2, the rate matching of
+% Sections 6.3.1.4.1 and 6.3.2.4.1, as well as the code block concatenation of
+% Sections 6.3.1.5.1 and 6.3.2.5.1. Note that this code does not implement the
+% UCI bit sequence generation of Sections 6.3.1.1 and 6.3.2.1, the
+% determination of the encoded block length E_UCI of Sections 6.3.1.4.1 and
+% 6.3.2.4.1, or the multiplexing of Sections 6.3.1.6 and 6.3.2.6. Also, this
+% code does not implement the small block lengths, which are detailed in
+% Sections 6.3.1.2.2, 6.3.1.3.2, 6.3.1.4.2, 6.3.2.2.2, 6.3.2.3.2 and 6.3.2.4.2.
 %   a_hat = PUCCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence
 %   f_tilde, in order to obtain the recovered information bit sequence
 %   a_hat.
@@ -8,7 +18,9 @@ function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 %   f_tilde should be a real row vector comprising G number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
 %   ln(P(bit=0)/P(bit=1)), where G should be no greater than 8192 if A<360
-%   and no greater than 16384 if A>=360.
+%   and no greater than 16384 if A>=360. The first LLR corresponds to g_0 
+%   from Sections 6.3.1.5 and 6.3.2.5 of TS38.212 V1.2.1, while the last 
+%   LLR corresponds to g_G-1.
 %
 %   A should be an integer scalar. It specifies the number of bits in the
 %   information bit sequence, where A should be in the range 12 to 1706.
@@ -23,7 +35,9 @@ function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 %   complexity.
 %
 %   a_hat will be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1.
+%   having the value 0 or 1. The first output bit corresponds to a_0 from 
+%   Sections 6.3.1.2 and 6.3.2.2 of TS38.212 V1.2.1, while the last output 
+%   bit corresponds to a_A-1.
 %
 %   See also PUCCH_ENCODER
 %

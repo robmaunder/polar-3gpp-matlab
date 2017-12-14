@@ -1,14 +1,20 @@
 function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
-% PDCCH_DECODER Physical Downlink Control Channel (PDCCH) polar decoder from 3GPP New
-% Radio, as specified in Section 7.3 of TS 38.212 v1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% PDCCH_DECODER Polar decoder for the Physical Downlink Control Channel (PDCCH) of 3GPP New
+% Radio, as defined in Section 7.3 of TS38.212 V1.2.1. Implements the zero-
+% padding to increase the length of short payloads to 12 bits of Section 7.3.1,
+% the Cyclic Redudancy Check (CRC) attachment of Section 7.3.2, the channel
+% coding of Section 7.3.3 and the rate matching of Section 7.3.4. Note that
+% this code does not implement the DCI bit sequence generation of Section
+% 7.3.1.
 %   a_hat = PDCCH_DECODER(f_tilde, A, L, min_sum) decodes the encoded LLR sequence 
 %   f_tilde, in order to obtain the recovered information bit sequence 
 %   a_hat.
 %
 %   f_tilde should be a real row vector comprising E number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
-%   ln(P(bit=0)/P(bit=1)).
+%   ln(P(bit=0)/P(bit=1)). The first LLR corresponds to f_0 from Section 
+%   7.3.4 of TS38.212 V1.2.1, while the last LLR corresponds to 
+%   f_E-1.
 %
 %   A should be an integer scalar. It specifies the number of bits in the
 %   information bit sequence, where A should be in the range 1 to 140.
@@ -24,10 +30,13 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 %
 %   RNTI should be a binary row vector comprising 16 bits, each having the
 %   value 0 or 1. If this parameter is omitted, then ones(1,16) will be
-%   used for the RNTI.
+%   used for the RNTI. The first bit corresponds to x_rnti,0 from Section
+%   7.3.2 of TS38.212 V1.2.1, while the last bit corresponds to x_rnti,15.
 %
 %   a_hat will be a binary row vector comprising A number of bits, each 
-%   having the value 0 or 1.
+%   having the value 0 or 1. The first output bit corresponds to a_0 from 
+%   Section 7.3.1 of TS38.212 V1.2.1, while the last output bit corresponds 
+%   to a_A-1.
 %
 %   See also PDCCH_ENCODER
 %

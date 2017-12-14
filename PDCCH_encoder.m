@@ -1,22 +1,31 @@
 function f = PDCCH_encoder(a, E, RNTI)
-% PDCCH_ENCODER Physical Downlink Control Channel (PDCCH) polar encoder from 3GPP New
-% Radio, as specified in Section 7.3 of TS 38.212 v1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% PDCCH_ENCODER Polar encoder for the Physical Downlink Control Channel (PDCCH) of 3GPP New
+% Radio, as defined in Section 7.3 of TS38.212 V1.2.1. Implements the zero-
+% padding to increase the length of short payloads to 12 bits of Section 7.3.1,
+% the Cyclic Redudancy Check (CRC) attachment of Section 7.3.2, the channel
+% coding of Section 7.3.3 and the rate matching of Section 7.3.4. Note that
+% this code does not implement the DCI bit sequence generation of Section
+% 7.3.1.
 %   f = PDCCH_ENCODER(a, E) encodes the information bit sequence a, in
 %   order to obtain the encoded bit sequence e.
 %
 %   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1. A should be in the range 1 to 140.
+%   having the value 0 or 1. A should be in the range 1 to 140. The first
+%   input bit corresponds to a_0 from Section 7.3.1 of TS38.212 V1.2.1, while the
+%   last input bit corresponds to a_A-1.
 %
 %   E should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where E should greater than A.
 %
 %   RNTI should be a binary row vector comprising 16 bits, each having the
 %   value 0 or 1. If this parameter is omitted, then ones(1,16) will be
-%   used for the RNTI.
+%   used for the RNTI. The first bit corresponds to x_rnti,0 from Section
+%   7.3.2 of TS38.212 V1.2.1, while the last bit corresponds to x_rnti,15.
 %
 %   f will be a binary row vector comprising E number of bits, each having
-%   the value 0 or 1.
+%   the value 0 or 1. The first output bit corresponds to f_0 from Section 
+%   7.3.4 of TS38.212 V1.2.1, while the last output bit corresponds to 
+%   f_E-1.
 %
 %   See also PDCCH_DECODER
 %

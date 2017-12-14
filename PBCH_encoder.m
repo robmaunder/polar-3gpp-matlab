@@ -1,22 +1,26 @@
 function f = PBCH_encoder(a, E)
-% PBCH_ENCODER Public Broadcast Channel (PBCH) polar encoder from 3GPP New
-% Radio, as specified in Section 7.1 of TS 38.212 v1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% PBCH_ENCODER Polar encoder for the Public Broadcast Channel (PBCH) of 3GPP New Radio, as
+% defined in Section 7.1 of TS38.212 V1.2.1. Implements the Cyclic Redudancy
+% Check (CRC) attachment of Section 7.1.3, the channel coding of Section 7.1.4
+% and the rate matching of Section 7.1.5. Note that this code does not
+% implement the payload generation of Section 7.1.1 or the scrambling of
+% Section 7.1.2.
 %   f = PBCH_ENCODER(a, E) encodes the information bit sequence a, in
 %   order to obtain the encoded bit sequence e.
 %
 %   a should be a binary row vector comprising 32 bits, each
-%   having the value 0 or 1. Note that this code does not perform the 
-%   scrambling of Section 7.1.1 in TS38.212 V1.1.2, since this depends on 
-%   several higher-layer parameters. But scrambling can be implemented
-%   externally to this code.
+%   having the value 0 or 1. The first input bit corresponds to a'_0 from 
+%   Section 7.1.3 of TS38.212 V1.2.1, while the last input bit corresponds 
+%   to a'_A-1.
 %
 %   E should be 864. It specifies the number of bits in the
 %   encoded bit sequence. Since there is only one valid value for this 
 %   parameter, it can be omitted.
 %
 %   f will be a binary row vector comprising 864 bits, each having
-%   the value 0 or 1.
+%   the value 0 or 1. The first output bit corresponds to f_0 from Section 
+%   7.1.5 of TS38.212 V1.2.1, while the last output bit corresponds to 
+%   f_E-1.
 %
 %   See also PBCH_DECODER
 %

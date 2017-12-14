@@ -1,18 +1,32 @@
 function f = PUCCH_encoder(a, G)
-% PUCCH_ENCODER Physical Uplink Control Channel (PUCCH) polar encoder from 3GPP New
-% Radio, as specified in Section 6.3.1 of TS 38.212 v1.1.1
+% PUCCH_ENCODER Polar encoder for the Physical Uplink Control Channel (PUCCH) and the
+% Physical Uplink Shared Channel (PUSCH) of 3GPP New Radio, as defined in
+% Section 6.3 of TS38.212 V1.2.1. Implements the code block segmentation and
+% Cyclic Redudancy Check (CRC) attachment of Sections 6.3.1.2.1 and 6.3.2.2.1,
+% the channel coding of Sections 6.3.1.3.1 and 6.3.2.3.2, the rate matching of
+% Sections 6.3.1.4.1 and 6.3.2.4.1, as well as the code block concatenation of
+% Sections 6.3.1.5.1 and 6.3.2.5.1. Note that this code does not implement the
+% UCI bit sequence generation of Sections 6.3.1.1 and 6.3.2.1, the
+% determination of the encoded block length E_UCI of Sections 6.3.1.4.1 and
+% 6.3.2.4.1, or the multiplexing of Sections 6.3.1.6 and 6.3.2.6. Also, this
+% code does not implement the small block lengths, which are detailed in
+% Sections 6.3.1.2.2, 6.3.1.3.2, 6.3.1.4.2, 6.3.2.2.2, 6.3.2.3.2 and 6.3.2.4.2.
 %   f = PUCCH_ENCODER(a, G) encodes the information bit sequence a, in
 %   order to obtain the encoded bit sequence f.
 %
 %   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1, where A should be in the range 12 to 1706.
+%   having the value 0 or 1, where A should be in the range 12 to 1706. The first
+%   input bit corresponds to a_0 from Sections 6.3.1.2 and 6.3.2.2 of TS38.212
+%   V1.2.1, while the last input bit corresponds to a_A-1.
 %
 %   G should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where G should be no greater than 8192 if A<360
 %   and no greater than 16384 if A>=360.
 %
 %   f will be a binary row vector comprising G number of bits, each having
-%   the value 0 or 1.
+%   the value 0 or 1. The first output bit corresponds to g_0 from Sections 
+%   6.3.1.5 and 6.3.2.5 of TS38.212 V1.2.1, while the last output bit 
+%   corresponds to g_G-1.
 %
 %   See also PUCCH_DECODER
 %
