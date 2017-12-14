@@ -10,20 +10,20 @@ Section of TS38.212 | Implemented in | Comment
 5.3.1 | components/get_3GPP_N.m |
 5.3.1.1 | components/get_3GPP_crc_interleaver_pattern.m | Interleaving can be implemented using c_prime = c(Pi)
 5.3.1.2 Q<sub>0</sub><sup>N-1</sup> | components/get_3GPP_sequence_pattern.m |
-5.3.1.2 Q_PC^N | components/get_PC_bit_pattern.m |
+5.3.1.2 Q<sub>PC</sub><sup>N</sup> | components/get_PC_bit_pattern.m |
 5.3.1.2 d | components/PCCA_polar_encoder.m | Other components/\*_polar_encoder.m files are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits
-5.4.1.1 P | components/get_3GPP_rate_matching_pattern.m |
-5.4.1.1 Q | components/get_3GPP_info_bit_pattern.m |
+5.4.1.1 P(i) | components/get_3GPP_rate_matching_pattern.m |
+5.4.1.1 Q<sub>I</sub><sup>N</sup> | components/get_3GPP_info_bit_pattern.m |
 5.4.1.2 | components/get_3GPP_rate_matching_pattern.m |
 5.4.1.3 | components/get_3GPP_channel_interleaver_pattern.m |
 5.5 | PUCCH_encoder.m |
 6.3.1.2.1 | PUCCH_encoder.m |
 6.3.1.3.1 | PUCCH_encoder.m |
-6.3.1.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E_UCI.
+6.3.1.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
 6.3.1.5 | PUCCH_encoder.m |
 6.3.2.2.1 | PUCCH_encoder.m |
 6.3.2.3.1 | PUCCH_encoder.m |
-6.3.2.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E_UCI.
+6.3.2.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
 6.3.2.5 | PUCCH_encoder.m |
 7.1.3 | PBCH_encoder.m |
 7.1.4 | PBCH_encoder.m |
@@ -32,6 +32,8 @@ Section of TS38.212 | Implemented in | Comment
 7.3.2 | PDCCH_encoder.m |
 7.3.3 | PDCCH_encoder.m |
 7.3.4 | PDCCH_encoder.m |
+
+Each of the \*_encoder.m files has corresponding \*_decoder.m files, for performing the corresponding operation in the receiver.
 
 Many thanks to my colleagues at [AccelerComm](http://www.accelercomm.com), who have spent lots of time double checking that this code matches the standard.
 
