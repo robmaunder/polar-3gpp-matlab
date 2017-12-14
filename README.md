@@ -5,34 +5,34 @@ At the time of writing, the most recent version of the relevant 3GPP standard is
 
 Section of TS38.212 | Implemented in | Comment
 --- | --- | ---
-5.1 |  components/get_crc_generator_matrix.m | The CRC bits can be generated using b = [a, mod(a*G_P, 2)]
-5.2.1 | PUCCH_encoder.m |
-5.3.1 | components/get_3GPP_N.m |
-5.3.1.1 | components/get_3GPP_crc_interleaver_pattern.m | Interleaving can be implemented using c_prime = c(Pi)
-5.3.1.2 Q<sub>0</sub><sup>N-1</sup> | components/get_3GPP_sequence_pattern.m | The elements of Q<sub>0</sub><sup>N-1</sup> are incremented by 1, since indices begin at 1 in Matlab.
-5.3.1.2 Q<sub>PC</sub><sup>N</sup> | components/get_PC_bit_pattern.m | Provides a vector of N elements, in which the elements with the indices Q<sub>PC</sub><sup>N</sup> are set to true and all other elements are set to false.
-5.3.1.2 u | components/PCCA_polar_encoder.m | Other components/\*_polar_encoder.m files are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits.
-5.3.1.2 G<sub>N</sub> | components/get_G_N.m | Encoding can be implemented using d = mod(u\*G_N, 2);
-5.4.1.1 P(i) | components/get_3GPP_rate_matching_pattern.m |
-5.4.1.1 Q<sub>I</sub><sup>N</sup> | components/get_3GPP_info_bit_pattern.m | Provides a vector of N elements, in which the elements with the indices Q<sub>I</sub><sup>N</sup> are set to true and all other elements are set to false.
-5.4.1.2 | components/get_3GPP_rate_matching_pattern.m |
-5.4.1.3 | components/get_3GPP_channel_interleaver_pattern.m |
-5.5 | PUCCH_encoder.m |
-6.3.1.2.1 | PUCCH_encoder.m |
-6.3.1.3.1 | PUCCH_encoder.m |
-6.3.1.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
-6.3.1.5 | PUCCH_encoder.m |
-6.3.2.2.1 | PUCCH_encoder.m |
-6.3.2.3.1 | PUCCH_encoder.m |
-6.3.2.4.1 | PUCCH_encoder.m | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
-6.3.2.5 | PUCCH_encoder.m |
-7.1.3 | PBCH_encoder.m |
-7.1.4 | PBCH_encoder.m |
-7.1.5 | PBCH_encoder.m |
-7.3.1 | PDCCH_encoder.m | Only implements the zero padding of DCI formats, to increase their length to 12 bits.
-7.3.2 | PDCCH_encoder.m |
-7.3.3 | PDCCH_encoder.m |
-7.3.4 | PDCCH_encoder.m |
+5.1 |  [components/get_crc_generator_matrix.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_crc_generator_matrix.m) | The CRC bits can be generated using b = [a, mod(a*G_P, 2)]
+5.2.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+5.3.1 | [components/get_3GPP_N.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_N.m) |
+5.3.1.1 | [components/get_3GPP_crc_interleaver_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_crc_interleaver_pattern.m) | Interleaving can be implemented using c_prime = c(Pi)
+5.3.1.2 Q<sub>0</sub><sup>N-1</sup> | [components/get_3GPP_sequence_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_sequence_pattern.m) | The elements of Q<sub>0</sub><sup>N-1</sup> are incremented by 1, since indices begin at 1 in Matlab.
+5.3.1.2 Q<sub>PC</sub><sup>N</sup> | [components/get_PC_bit_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_PC_bit_pattern.m) | Provides a vector of N elements, in which the elements with the indices Q<sub>PC</sub><sup>N</sup> are set to true and all other elements are set to false.
+5.3.1.2 u | [components/PCCA_polar_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/PCCA_polar_encoder.m) | Other components/\*_polar_encoder.m files are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits.
+5.3.1.2 G<sub>N</sub> | [components/get_G_N.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_G_N.m) | Encoding can be implemented using d = mod(u\*G_N, 2);
+5.4.1.1 P(i) | [components/get_3GPP_rate_matching_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_rate_matching_pattern.m) |
+5.4.1.1 Q<sub>I</sub><sup>N</sup> | [components/get_3GPP_info_bit_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_info_bit_pattern.m) | Provides a vector of N elements, in which the elements with the indices Q<sub>I</sub><sup>N</sup> are set to true and all other elements are set to false.
+5.4.1.2 | [components/get_3GPP_rate_matching_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_rate_matching_pattern.m) |
+5.4.1.3 | [components/get_3GPP_channel_interleaver_pattern.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_3GPP_channel_interleaver_pattern.m) |
+5.5 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.1.2.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.1.3.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.1.4.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
+6.3.1.5 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.2.2.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.2.3.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+6.3.2.4.1 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) | Rate matching is implemented, but not the determination of E<sub>UCI</sub>.
+6.3.2.5 | [PUCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PUCCH_encoder.m) |
+7.1.3 | [PBCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PBCH_encoder.m) |
+7.1.4 | [PBCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PBCH_encoder.m) |
+7.1.5 | [PBCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PBCH_encoder.m) |
+7.3.1 | [PDCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PDCCH_encoder.m) | Only implements the zero padding of DCI formats, to increase their length to 12 bits.
+7.3.2 | [PDCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PDCCH_encoder.m) |
+7.3.3 | [PDCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PDCCH_encoder.m) |
+7.3.4 | [PDCCH_encoder.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/PDCCH_encoder.m) |
 
 Each of the \*_encoder.m files has corresponding \*_decoder.m files, for performing the corresponding operation of the receiver.
 
