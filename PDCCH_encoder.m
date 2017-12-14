@@ -6,7 +6,7 @@ function f = PDCCH_encoder(a, E, RNTI)
 %   order to obtain the encoded bit sequence e.
 %
 %   a should be a binary row vector comprising A number of bits, each
-%   having the value 0 or 1. A should be in the range 1 to 200.
+%   having the value 0 or 1. A should be in the range 1 to 140.
 %
 %   E should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where E should greater than A.
@@ -39,15 +39,27 @@ if length(RNTI) ~= 16
 end
 
 
+
 A = length(a);
+
+if A > 140
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
+end
+
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
 crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
 P = length(crc_polynomial_pattern)-1;
 
-% Determine the number of information and CRC bits.
-K = A+P; 
+% If a contains fewer than 12 bits, increase its length to 12 by padding it 
+% with zeros
+if A < 12
+    a = [a,zeros(1,12-length(a))];
+    K = 12+P;
+else
+    K = A+P;     
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
@@ -66,4 +78,4 @@ Q_N = get_3GPP_sequence_pattern(N);
 info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
 
 % Perform Distributed-CRC-Aided polar encoding.
-f = DSCA_polar_encoder(a,crc_polynomial_pattern, RNTI, crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);
+f = DS1CA_polar_encoder(a,crc_polynomial_pattern, RNTI, crc_interleaver_pattern,info_bit_pattern,rate_matching_pattern);

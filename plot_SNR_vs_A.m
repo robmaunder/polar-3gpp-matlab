@@ -1,8 +1,8 @@
-function plot_SNR_vs_A(code, A, R, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
+function plot_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
 % PLOT_SNR_VS_A Plots Signal to Noise Ratio (SNR) required to achieve a 
 % particular Block Error Rate (BLER) as a function of block length, for 
 % polar codes.
-%   plot_SNR_vs_A(code, A, R, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
+%   plot_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
 %   generates the plots.
 %
 %   code should be a string. This identifies which encoder and decoder
@@ -18,9 +18,8 @@ function plot_SNR_vs_A(code, A, R, L, min_sum, target_block_errors, target_BLER,
 %   bits in each set of simulated information bit sequences, before CRC and 
 %   other redundant bits are included.
 %
-%   R should be an real row vector. Each element of R specifies one 
-%   coding rate R=A/E to simulate, where E is the number of bits in each 
-%   encoded bit sequence.
+%   E should be an integer row vector. Each element of E specifies one 
+%   encoded block length to simulate.
 %
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.
@@ -70,13 +69,13 @@ function plot_SNR_vs_A(code, A, R, L, min_sum, target_block_errors, target_BLER,
 % Default values
 if nargin == 0
     code = 'custom1';
-    A = 16:16:1024;
-    R = [0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250];
+    A = [8:15, 16:2:30, 32:4:60, 64:8:120, 128:16:240, 256:32:480, 512:64:960, 1024:128:2048];
+    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
     min_sum = true;
     target_block_errors = 10;
     target_BLER = 1e-1;
-    EsN0_start = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
+    EsN0_start = -25;
     EsN0_delta = 0.5;
     seed = 0;
 end
@@ -91,30 +90,32 @@ title([code, ' polar code, L = ',num2str(L),', QPSK, AWGN']);
 ylabel(['E_s/N_0 [dB] at BLER = ',num2str(target_BLER)]);
 xlabel('A');
 xlim([0,max(A)]);
+set(gca,'XScale','log')
 grid on
 hold on
 drawnow
 
 % Consider each coding rate in turn
-for R_index = 1:length(R)
+for E_index = 1:length(E)
     
     % Create the plot
-    plots(R_index) = plot(nan,'Parent',axes1);
-    set(plots(R_index),'XData',A);
-    legend(cellstr(num2str(R(1:R_index)', 'A/E=%0.3f')),'Location','eastoutside');
+    plots(E_index) = plot(nan,'Parent',axes1);
+    set(plots(E_index),'XData',A);
+    legend(cellstr(num2str(E(1:E_index)', 'E=%d')),'Location','eastoutside');
     
     EsN0s = nan(1,length(A));
     
     % Consider each information block length in turn
     for A_index = 1:length(A)
-        E = round(A(A_index)/R(R_index));
+        
+        found_start = false;
         
         % Skip any combinations of block lengths that are not supported
         try
             % Initialise the BLER and SNR
             BLER=1;
             prev_BLER = nan;
-            EsN0 = EsN0_start(R_index);
+            EsN0 = EsN0_start;
             prev_EsN0 = nan;
             
             % Loop over the SNRs
@@ -126,14 +127,16 @@ for R_index = 1:length(R)
                 block_error_count = 0;
                 block_count = 0;
                 
+                keep_going = true;
+                
                 % Continue the simulation until enough block errors have been simulated
-                while block_error_count < target_block_errors
+                while keep_going && block_error_count < target_block_errors
                     
                     % Generate a random frame of bits
                     a = round(rand(1,A(A_index)));
                     
                     % Perform polar encoding
-                    f = feval([code,'_encoder'], a, E);
+                    f = feval([code,'_encoder'], a, E(E_index));
                     
                     % QPSK modulation
                     f2 = [f,zeros(1,mod(-length(f),2))];
@@ -151,14 +154,23 @@ for R_index = 1:length(R)
                     % Perform polar decoding
                     a_hat = feval([code, '_decoder'],f_tilde,A(A_index),L,min_sum);
                     
-                    % Determine if we have a block error
-                    if ~isequal(a, a_hat)
-                        block_error_count = block_error_count+1;
+                    if found_start == false && ~isequal(a,a_hat)
+                        keep_going = false;
+
+                        block_error_count = 1;
+                        block_count = 1;
+                    else
+                        found_start = true;
+
+                        % Determine if we have a block error
+                        if ~isequal(a, a_hat)
+                            block_error_count = block_error_count+1;
+                        end
+
+                        % Accumulate the number of blocks that have been simulated 
+                        % so far
+                        block_count = block_count+1;
                     end
-                    
-                    % Accumulate the number of blocks that have been simulated 
-                    % so far
-                    block_count = block_count+1;
                 end
                 prev_BLER = BLER;
                 BLER = block_error_count/block_count;
@@ -167,7 +179,7 @@ for R_index = 1:length(R)
             end
         catch ME
             if strcmp(ME.identifier, 'polar_3gpp_matlab:UnsupportedBlockLength')
-                warning('polar_3gpp_matlab:UnsupportedBlockLength','%s does not support the combination of block lengths A=%d and E=%d. %s',code,A(A_index),E, getReport(ME, 'basic', 'hyperlinks', 'on' ));
+                warning('polar_3gpp_matlab:UnsupportedBlockLength','%s does not support the combination of block lengths A=%d and E=%d. %s',code,A(A_index),E(E_index), getReport(ME, 'basic', 'hyperlinks', 'on' ));
                 continue
             else
                 rethrow(ME);
@@ -177,7 +189,7 @@ for R_index = 1:length(R)
         EsN0s(A_index) = interp1(log10([prev_BLER, BLER]),[prev_EsN0,EsN0],log10(target_BLER));
 
         % Plot the SNR vs A results
-        set(plots(R_index),'YData',EsN0s);
+        set(plots(E_index),'YData',EsN0s);
         drawnow;
     end
 end

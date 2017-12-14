@@ -1,6 +1,6 @@
-function a_hat = DSCA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambling_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2)
-% DSCA_POLAR_DECODER Distributed-and-Scrambled-CRC-Aided (DSCA) polar decoder.
-%   a_hat = DSCA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2) 
+function a_hat = DS1CA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambling_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2)
+% DS1CA_POLAR_DECODER Distributed-Scrambled-and-1-initialised-CRC-Aided (DS1CA) polar decoder.
+%   a_hat = DS1CA_POLAR_DECODER(e_tilde, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern, mode, L, min_sum, P2) 
 %   decodes the encoded LLR sequence e_tilde, in order to obtain the
 %   recovered information bit sequence a_hat.
 %
@@ -66,9 +66,9 @@ function a_hat = DSCA_polar_decoder(e_tilde, crc_polynomial_pattern, crc_scrambl
 %   each having the value 0 or 1. However, in cases where the CRC check 
 %   fails, a_hat will be an empty vector.
 %
-%   See also DSCA_POLAR_ENCODER
+%   See also DS1CA_POLAR_ENCODER
 %
-% Copyright © 2017 Robert G. Maunder. This program is free software: you 
+% Copyright ? 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
 % Public License as published by the Free Software Foundation, either 
 % version 3 of the License, or (at your option) any later version. This 
@@ -120,7 +120,7 @@ approx_minstar=min_sum;
 % Get the CRC generator matrix, which has dimensions A by P.
 G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
 
-% Extende the CRC generator matrix by append an identity matrix to 
+% Extend the CRC generator matrix by append an identity matrix to 
 % represent the CRC bits, giving dimenstions K by P.
 G_P2 = [G_P;eye(P)];
 
@@ -136,7 +136,7 @@ last_one_index = zeros(1,P);
 for p = 1:P
     last_one_index(p) = find(G_P3(:,p) == 1, 1, 'last');
 end
-
+ 
 % Extend the scrambling pattern to match the length of the CRC
 extended_crc_scrambling_pattern = [zeros(1,P-length(crc_scrambling_pattern)), crc_scrambling_pattern];
 
@@ -211,8 +211,13 @@ for i = 1:N
         
         % We use the interleaved CRC generator matrix to update the CRC 
         % check sums whenever an information or CRC bit adopts a value of
-        % 1.
-        crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
+        % 1. We need to toggle the first P information bits to model a CRC 
+        % that is initialised with all ones.
+        if crc_interleaver_pattern(i2) <= P
+            crc_checksums = cat(3,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2),crc_checksums);            
+        else
+            crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
+        end
         % We need to keep track of whether any of the checks associated 
         % with the previous CRC bits have failed.
         crc_okay = cat(3,crc_okay,crc_okay);

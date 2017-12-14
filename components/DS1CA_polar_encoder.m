@@ -1,6 +1,6 @@
-function e = DSCA_polar_encoder(a, crc_polynomial_pattern, crc_scrambling_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern)
-% DSCA_POLAR_ENCODER Distributed-and-Scrambled-CRC-Aided (DSCA) polar encoder.
-%   e = CA_POLAR_ENCODER(a, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern) 
+function e = DS1CA_polar_encoder(a, crc_polynomial_pattern, crc_scrambling_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern)
+% DS1CA_POLAR_ENCODER Distributed-Scrambled-and-1-initialised-CRC-Aided (DS1CA) polar encoder.
+%   e = DS1CA_POLAR_ENCODER(a, crc_polynomial_pattern, crc_interleaver_pattern, info_bit_pattern, rate_matching_pattern) 
 %   encodes the information bit sequence a, in order to obtain the encoded 
 %   bit sequence e.
 %
@@ -38,9 +38,9 @@ function e = DSCA_polar_encoder(a, crc_polynomial_pattern, crc_scrambling_patter
 %   e will be a binary row vector comprising E number of bits, each having
 %   the value 0 or 1.
 %
-%   See also DSCA_POLAR_DECODER
+%   See also DS1CA_POLAR_DECODER
 %
-% Copyright © 2017 Robert G. Maunder. This program is free software: you 
+% Copyright ? 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
 % Public License as published by the Free Software Foundation, either 
 % version 3 of the License, or (at your option) any later version. This 
@@ -72,11 +72,14 @@ end
 
 % Generate the CRC bits.
 G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
-crc_bits = mod(a*G_P,2);
+a2 = a;
+a2((1:A)<=P) = ~a2((1:A)<=P); % Toggle the first P bits to model a CRC that is initialised with all ones
+crc_bits = mod(a2*G_P,2);
+crc_bits((A+1:A+P) <= P) = ~crc_bits((A+1:A+P) <= P);
 
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
-
+ 
 % Append the scrambled CRC bits to the information bits.
 b = [a, scrambled_crc_bits];
 

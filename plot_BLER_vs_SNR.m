@@ -69,13 +69,13 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 % Default values
 if nargin == 0
     code = 'custom1';
-    A = 24;
-    E = round(A./[0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250]);
+    A = 32;
+    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
     min_sum = true;
     target_block_errors = 10;
     target_BLER = 1e-1;
-    EsN0_start = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
+    EsN0_start = -25;
     EsN0_delta = 0.5;
     seed = 0;
 end
@@ -114,7 +114,9 @@ for E_index = 1:length(E)
     
     % Initialise the BLER and SNR
     BLER = 1;
-    EsN0 = EsN0_start(E_index);
+    EsN0 = EsN0_start;
+    
+    found_start = false;
     
     % Skip any encoded block lengths that generate errors
     try
@@ -129,8 +131,10 @@ for E_index = 1:length(E)
             block_error_counts(end+1) = 0;
             EsN0s(end+1) = EsN0;
             
+            keep_going = true;
+            
             % Continue the simulation until enough block errors have been simulated
-            while block_error_counts(end) < target_block_errors
+            while keep_going && block_error_counts(end) < target_block_errors 
                 
                 % Generate a random block of bits
                 a = round(rand(1,A));
@@ -154,25 +158,35 @@ for E_index = 1:length(E)
                 % Perform polar decoding
                 a_hat = feval([code, '_decoder'],f_tilde,A,L,min_sum);
                 
-                % Determine if we have a block error
-                if ~isequal(a,a_hat)
-                    block_error_counts(end) = block_error_counts(end) + 1;
+                
+                if found_start == false && ~isequal(a,a_hat)
+                    keep_going = false;
+                    BLER = 1;
+                else
+                    found_start = true;
+                
+                    % Determine if we have a block error
+                    if ~isequal(a,a_hat)
+                            block_error_counts(end) = block_error_counts(end) + 1;
+                    end
+
+                    % Accumulate the number of blocks that have been simulated 
+                    % so far
+                    block_counts(end) = block_counts(end) + 1;
+
+                    % Calculate the BLER and save it in the file
+                    BLER = block_error_counts(end)/block_counts(end);                        
+                                        
+                    % Plot the BLER vs SNR results
+                    set(plot1,'XData',EsN0s);
+                    set(plot1,'YData',block_error_counts./block_counts);                
+                    drawnow
                 end
-                
-                % Accumulate the number of blocks that have been simulated 
-                % so far
-                block_counts(end) = block_counts(end) + 1;
-                
-                % Plot the BLER vs SNR results
-                set(plot1,'XData',EsN0s);
-                set(plot1,'YData',block_error_counts./block_counts);                
-                drawnow
-                
             end
             
-            % Calculate the BLER and save it in the file
-            BLER = block_error_counts(end)/block_counts(end);                        
-            fprintf(fid,'%f\t%e\n',EsN0,BLER);
+            if BLER < 1
+                fprintf(fid,'%f\t%e\n',EsN0,BLER);
+            end
 
             % Update the SNR, ready for the next loop
             EsN0 = EsN0 + EsN0_delta;
