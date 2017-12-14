@@ -11,7 +11,8 @@ Section of TS38.212 | Implemented in | Comment
 5.3.1.1 | components/get_3GPP_crc_interleaver_pattern.m | Interleaving can be implemented using c_prime = c(Pi)
 5.3.1.2 Q<sub>0</sub><sup>N-1</sup> | components/get_3GPP_sequence_pattern.m | The elements of Q<sub>0</sub><sup>N-1</sup> are incremented by 1, since indices begin at 1 in Matlab.
 5.3.1.2 Q<sub>PC</sub><sup>N</sup> | components/get_PC_bit_pattern.m | Provides a vector of N elements, in which the elements with the indices Q<sub>PC</sub><sup>N</sup> are set to true and all other elements are set to false.
-5.3.1.2 d | components/PCCA_polar_encoder.m | Other components/\*_polar_encoder.m files are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits
+5.3.1.2 u | components/PCCA_polar_encoder.m | Other components/\*_polar_encoder.m files are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits.
+5.3.1.2 G<sub>N</sub> | components/get_G_N.m | Encoding can be implemented using d = mod(u\*G_N, 2);
 5.4.1.1 P(i) | components/get_3GPP_rate_matching_pattern.m |
 5.4.1.1 Q<sub>I</sub><sup>N</sup> | components/get_3GPP_info_bit_pattern.m | Provides a vector of N elements, in which the elements with the indices Q<sub>I</sub><sup>N</sup> are set to true and all other elements are set to false.
 5.4.1.2 | components/get_3GPP_rate_matching_pattern.m |
