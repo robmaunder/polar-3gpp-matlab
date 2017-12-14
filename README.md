@@ -5,7 +5,12 @@ At the time of writing, the most recent version of the relevant 3GPP standard is
 
 Section | Source file | Comment
 --- | --- | ---
-5.1 |  components/get_crc_generator_matrix.m | The CRC bits can be generated according to mod(a*G_P,2)
+5.1 |  components/get_crc_generator_matrix.m | The CRC bits can be generated using b = [a, mod(a*G_P, 2)]
+5.2.1 | PUCCH_encoder.m |
+5.3.1 | components/get_3GPP_N.m |
+5.3.1.1 | components/get_3GPP_crc_interleaver_pattern.m | Interleaving can be implemented using c_prime = c(Pi)
+5.3.1.2 | components/PCCA_polar_encoder.m | Other components/\*_polar_encoder.m are also useful for special cases without PC bits, without CRC bits or with distributed CRC bits
+
 
 Many thanks to my colleagues at [AccelerComm](http://www.accelercomm.com), who have spent lots of time double checking that this code matches the standard.
 
