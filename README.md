@@ -5,7 +5,6 @@ At the time of writing, the most recent version of the relevant 3GPP standard is
 
 
 ![PBCH](./results/PBCH.svg)
-<img src="./results/PBCH.svg">
 
 
 Section of TS38.212 | Implemented in | Comment
