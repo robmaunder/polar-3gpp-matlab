@@ -5,7 +5,7 @@ At the time of writing, the most recent version of the relevant 3GPP standard is
 
 
 ![PBCH](./results/PBCH.svg) | Plot of Block Error Rate (BLER) versus channel Signal to Noise Ratio (SNR) E<sub>s</sub>/N<sub>0</sub> for the Public Broadcast Channel (PBCH) polar code of 3GPP New Radio, when using Quadrature Phase Shift Keying (QPSK) for communication over an Additive White Gaussian Noise (AWGN) channel. Here, A is the number of bits in each information block, E is the number of bits in each encoded block and L is the list size used during min-sum Successive Cancellation List (SCL) decoding. The simulation of each SNR was continued until 1000 block errors were observed.
-
+--- | ---
 ![PDCCH](./results/PDCCH.svg) | Plot of Signal to Noise Ratio (SNR) E<sub>s</sub>/N<sub>0</sub> required to achieve a Block Error Rate (BLER) of 10<sup>-3</sup> versus number bits in each information block A for the Physical Downlink Control Channel (PDCCH) polar code of 3GPP New Radio, when using Quadrature Phase Shift Keying (QPSK) for communication over an Additive White Gaussian Noise (AWGN) channel. Here, E is the number of bits in each encoded block and L is the list size used during min-sum Successive Cancellation List (SCL) decoding. The simulation of each SNR was continued until 100 block errors were observed.
 
 
