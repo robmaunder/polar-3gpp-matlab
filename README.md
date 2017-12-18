@@ -3,6 +3,11 @@ Matlab simulations of the encoder and SCL decoder for the New Radio polar code f
 
 At the time of writing, the most recent version of the relevant 3GPP standard is [TS38.212 V1.2.1](https://list.etsi.org/scripts/wa.exe?A3=ind1712B&L=3GPP_TSG_RAN_WG1&E=base64&P=176434682&B=--_004_543CF4C91C60E844AE997DC07D4CC64501A9F092DGGEML504MBSchi_&T=application%2Fx-zip-compressed;%20name=%22R1-1721342.zip%22&N=R1-1721342.zip&attachment=q&XSS=3).
 
+
+![PBCH](./results/PBCH.svg)
+<img src="./results/PBCH.svg">
+
+
 Section of TS38.212 | Implemented in | Comment
 --- | --- | ---
 5.1 |  [components/get_crc_generator_matrix.m](https://github.com/robmaunder/polar-3gpp-matlab/blob/master/components/get_crc_generator_matrix.m) | The CRC bits are generated using b = [a, mod(a*G_P, 2)].

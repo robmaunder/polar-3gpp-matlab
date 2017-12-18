@@ -68,7 +68,7 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 
 % Default values
 if nargin == 0
-    code = 'custom1';
+    code = 'PUCCH';
     A = 32;
     E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
@@ -86,7 +86,7 @@ rng(seed);
 % Create a figure to plot the results.
 figure
 axes1 = axes('YScale','log');
-title([code, ' polar code, A = ',num2str(A),', L = ',num2str(L),', QPSK, AWGN']);
+title([code, ' polar code, A = ',num2str(A),', L = ',num2str(L),', minsum = ',num2str(min_sum),', errors = ',num2str(target_block_errors),', QPSK, AWGN']);
 ylabel('BLER');
 xlabel('E_s/N_0 [dB]');
 ylim([target_BLER,1]);
@@ -106,7 +106,7 @@ for E_index = 1:length(E)
     EsN0s = [];
         
     % Open a file to save the results into.
-    filename = ['results/results_',code,'_',num2str(A),'_',num2str(E(E_index)),'_',num2str(L),'_',num2str(min_sum),'_',num2str(seed)];
+    filename = ['results/BLER_vs_SNR_',code,'_',num2str(A),'_',num2str(E(E_index)),'_',num2str(L),'_',num2str(min_sum),'_',num2str(target_block_errors),'_',num2str(seed)];
     fid = fopen([filename,'.txt'],'w');
     if fid == -1
         error('Could not open %s.txt',filename);

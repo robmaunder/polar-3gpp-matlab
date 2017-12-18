@@ -68,7 +68,7 @@ function plot_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER,
 
 % Default values
 if nargin == 0
-    code = 'custom1';
+    code = 'PUCCH';
     A = [8:15, 16:2:30, 32:4:60, 64:8:120, 128:16:240, 256:32:480, 512:64:960, 1024:128:2048];
     E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
     L = 1;
@@ -86,11 +86,12 @@ rng(seed);
 % Create a figure to plot the results.
 figure
 axes1 = axes;
-title([code, ' polar code, L = ',num2str(L),', QPSK, AWGN']);
-ylabel(['E_s/N_0 [dB] at BLER = ',num2str(target_BLER)]);
+title([code, ' polar code, BLER = ',num2str(target_BLER),', L = ',num2str(L),', minsum = ',num2str(min_sum),', errors = ',num2str(target_block_errors),', QPSK, AWGN']);
+ylabel('Required E_s/N_0 [dB]');
 xlabel('A');
-xlim([0,max(A)]);
-set(gca,'XScale','log')
+xt = 0:11;
+set(gca, 'XTick', xt);
+set (gca, 'XTickLabel', 2.^xt);
 grid on
 hold on
 drawnow
@@ -100,10 +101,18 @@ for E_index = 1:length(E)
     
     % Create the plot
     plots(E_index) = plot(nan,'Parent',axes1);
-    set(plots(E_index),'XData',A);
+    set(plots(E_index),'XData',log2(A));
     legend(cellstr(num2str(E(1:E_index)', 'E=%d')),'Location','eastoutside');
     
     EsN0s = nan(1,length(A));
+
+    % Open a file to save the results into.
+    filename = ['results/SNR_vs_A_',code,'_',num2str(target_BLER),'_',num2str(E(E_index)),'_',num2str(L),'_',num2str(min_sum),'_',num2str(target_block_errors),'_',num2str(seed)];
+    fid = fopen([filename,'.txt'],'w');
+    if fid == -1
+        error('Could not open %s.txt',filename);
+    end
+    
     
     % Consider each information block length in turn
     for A_index = 1:length(A)
@@ -190,6 +199,19 @@ for E_index = 1:length(E)
 
         % Plot the SNR vs A results
         set(plots(E_index),'YData',EsN0s);
+        
+        xlim auto;
+        xl = xlim;
+        xlim([floor(xl(1)), ceil(xl(2))]);
+
         drawnow;
+        
+        fprintf(fid,'%d\t%f\n',A(A_index),EsN0s(A_index));
+
+        
     end
+    
+    % Close the file
+    fclose(fid);
+
 end
