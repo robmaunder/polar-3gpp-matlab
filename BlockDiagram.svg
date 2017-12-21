@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: fig2dev Version 3.2 Patchlevel 5d -->
-<!-- CreationDate: Thu Dec 21 21:44:19 2017 -->
+<!-- CreationDate: Thu Dec 21 21:46:36 2017 -->
 <!-- Magnification: 1.000 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -14,43 +14,25 @@
 d="M 12000,8850 A 150 150  0  0  1  12300  8850 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,15750 A 150 150  0  0  1  12300  15750 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 9000,15450 A 150 150  0  0  0  9300  15450 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,15750 A 150 150  0  0  0  11700  15750 " />
+d="M 12000,8850 A 150 150  0  0  0  11700  8850 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 9000,8550 A 150 150  0  0  0  9300  8550 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 15000,8550 A 150 150  0  0  1  14700  8550 " />
+d="M 9000,15450 A 150 150  0  0  0  9300  15450 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 15000,15450 A 150 150  0  0  1  14700  15450 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,8850 A 150 150  0  0  0  11700  8850 " />
-<!-- Line: box -->
-<rect x="14625" y="15375" width="225" height="300" rx="0" 
-style="stroke:#000000;stroke-width:0;
-stroke-linejoin:miter; stroke-linecap:butt;
-fill:#ffffff;
-"/>
-<!-- Line: box -->
-<rect x="11625" y="8625" width="225" height="300" rx="0" 
-style="stroke:#000000;stroke-width:0;
-stroke-linejoin:miter; stroke-linecap:butt;
-fill:#ffffff;
-"/>
-<!-- Line: box -->
-<rect x="9150" y="8475" width="225" height="300" rx="0" 
-style="stroke:#000000;stroke-width:0;
-stroke-linejoin:miter; stroke-linecap:butt;
-fill:#ffffff;
-"/>
+d="M 12000,15750 A 150 150  0  0  1  12300  15750 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 12000,15750 A 150 150  0  0  0  11700  15750 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 15000,8550 A 150 150  0  0  1  14700  8550 " />
 <!-- Line: box -->
 <rect x="9150" y="15375" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
@@ -64,13 +46,31 @@ stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
 "/>
 <!-- Line: box -->
-<rect x="12150" y="15525" width="225" height="300" rx="0" 
+<rect x="14625" y="15375" width="225" height="300" rx="0" 
+style="stroke:#000000;stroke-width:0;
+stroke-linejoin:miter; stroke-linecap:butt;
+fill:#ffffff;
+"/>
+<!-- Line: box -->
+<rect x="11625" y="8625" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
 stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
 "/>
 <!-- Line: box -->
 <rect x="11625" y="15525" width="225" height="300" rx="0" 
+style="stroke:#000000;stroke-width:0;
+stroke-linejoin:miter; stroke-linecap:butt;
+fill:#ffffff;
+"/>
+<!-- Line: box -->
+<rect x="9150" y="8475" width="225" height="300" rx="0" 
+style="stroke:#000000;stroke-width:0;
+stroke-linejoin:miter; stroke-linecap:butt;
+fill:#ffffff;
+"/>
+<!-- Line: box -->
+<rect x="12150" y="15525" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
 stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
@@ -499,52 +499,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line: box -->
-<rect x="11250" y="5250" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Text -->
-<text xml:space="preserve" x="12000" y="5625" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Sub-block</text>
-<!-- Text -->
-<text xml:space="preserve" x="12000" y="5850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">interleaving</text>
-<!-- Line -->
-<polyline points="10500,5700
-11130,5700
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 10500 5700 - 11265 5700-->
-<polygon points="11129 5730
-11249 5700
-11129 5670
-11129 5730
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line: box -->
-<rect x="15750" y="19650" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Text -->
-<text xml:space="preserve" x="16500" y="20025" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Sub-block</text>
-<!-- Text -->
-<text xml:space="preserve" x="16500" y="20250" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">interleaving</text>
-<!-- Line -->
-<polyline points="15000,20100
-15630,20100
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 15000 20100 - 15765 20100-->
-<polygon points="15629 20130
-15749 20100
-15629 20070
-15629 20130
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line: box -->
 <rect x="15750" y="30450" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
@@ -766,6 +720,33 @@ stroke-linejoin:miter; stroke-linecap:butt;
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
+<!-- Line: box -->
+<rect x="11250" y="5250" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="12000" y="5625" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Sub-block</text>
+<!-- Text -->
+<text xml:space="preserve" x="12000" y="5850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">interleaving</text>
+<!-- Line: box -->
+<rect x="15750" y="19650" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="16500" y="20025" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Sub-block</text>
+<!-- Text -->
+<text xml:space="preserve" x="16500" y="20250" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">interleaving</text>
+<!-- Line: box -->
+<rect x="9000" y="5250" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="9750" y="5625" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Polar</text>
+<!-- Text -->
+<text xml:space="preserve" x="9750" y="5850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">encoding</text>
 <!-- Line -->
 <polyline points="1500,6600
 1875,6600
@@ -1212,11 +1193,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 "/>
-<!-- Line: box -->
-<rect x="9000" y="5250" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
 <!-- Line -->
 <polyline points="17250,5700
 17880,5700
@@ -1543,6 +1519,34 @@ stroke-linejoin:miter; stroke-linecap:butt;
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
+<!-- Line -->
+<polyline points="10500,5700
+11130,5700
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 10500 5700 - 11265 5700-->
+<polygon points="11129 5730
+11249 5700
+11129 5670
+11129 5730
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="15000,20100
+15630,20100
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 15000 20100 - 15765 20100-->
+<polygon points="15629 20130
+15749 20100
+15629 20070
+15629 20130
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
 <!-- Text -->
 <text xml:space="preserve" x="2025" y="5550" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="end">A in [12, 1706]</text>
 <!-- Text -->
@@ -1643,12 +1647,6 @@ fill:#000000;"/>
 <text xml:space="preserve" x="5250" y="5775" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">CRC11</text>
 <!-- Text -->
 <text xml:space="preserve" x="5250" y="5550" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">CRC6 or</text>
-<!-- Text -->
-<text xml:space="preserve" x="9750" y="5550" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">PC-polar</text>
-<!-- Text -->
-<text xml:space="preserve" x="9750" y="6000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">encoding</text>
-<!-- Text -->
-<text xml:space="preserve" x="9750" y="5775" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">or polar</text>
 <!-- Text -->
 <text xml:space="preserve" x="14250" y="8250" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(6.3.1.4.2/6.3.2.4.2)</text>
 <!-- Text -->
