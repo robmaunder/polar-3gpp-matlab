@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: fig2dev Version 3.2 Patchlevel 5d -->
-<!-- CreationDate: Thu Dec 21 20:39:29 2017 -->
+<!-- CreationDate: Thu Dec 21 21:44:19 2017 -->
 <!-- Magnification: 1.000 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -11,40 +11,28 @@
 <g style="stroke-width:.025in; fill:none">
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 12000,8850 A 150 150  0  0  1  12300  8850 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 12000,15750 A 150 150  0  0  1  12300  15750 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 9000,15450 A 150 150  0  0  0  9300  15450 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
+d="M 12000,15750 A 150 150  0  0  0  11700  15750 " />
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 9000,8550 A 150 150  0  0  0  9300  8550 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 15000,8550 A 150 150  0  0  1  14700  8550 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,15750 A 150 150  0  0  1  12300  15750 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,8850 A 150 150  0  0  1  12300  8850 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 15000,15450 A 150 150  0  0  1  14700  15450 " />
 <!-- Arc -->
 <path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
 d="M 12000,8850 A 150 150  0  0  0  11700  8850 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 12000,15750 A 150 150  0  0  0  11700  15750 " />
-<!-- Arc -->
-<path style="stroke:#000000;stroke-width:7;stroke-linecap:butt;"
-d="M 9000,15450 A 150 150  0  0  0  9300  15450 " />
-<!-- Line: box -->
-<rect x="11625" y="15525" width="225" height="300" rx="0" 
-style="stroke:#000000;stroke-width:0;
-stroke-linejoin:miter; stroke-linecap:butt;
-fill:#ffffff;
-"/>
-<!-- Line: box -->
-<rect x="9150" y="15375" width="225" height="300" rx="0" 
-style="stroke:#000000;stroke-width:0;
-stroke-linejoin:miter; stroke-linecap:butt;
-fill:#ffffff;
-"/>
 <!-- Line: box -->
 <rect x="14625" y="15375" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
@@ -52,7 +40,7 @@ stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
 "/>
 <!-- Line: box -->
-<rect x="12150" y="15525" width="225" height="300" rx="0" 
+<rect x="11625" y="8625" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
 stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
@@ -64,7 +52,7 @@ stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
 "/>
 <!-- Line: box -->
-<rect x="14625" y="8475" width="225" height="300" rx="0" 
+<rect x="9150" y="15375" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
 stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
@@ -76,7 +64,19 @@ stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
 "/>
 <!-- Line: box -->
-<rect x="11625" y="8625" width="225" height="300" rx="0" 
+<rect x="12150" y="15525" width="225" height="300" rx="0" 
+style="stroke:#000000;stroke-width:0;
+stroke-linejoin:miter; stroke-linecap:butt;
+fill:#ffffff;
+"/>
+<!-- Line: box -->
+<rect x="11625" y="15525" width="225" height="300" rx="0" 
+style="stroke:#000000;stroke-width:0;
+stroke-linejoin:miter; stroke-linecap:butt;
+fill:#ffffff;
+"/>
+<!-- Line: box -->
+<rect x="14625" y="8475" width="225" height="300" rx="0" 
 style="stroke:#000000;stroke-width:0;
 stroke-linejoin:miter; stroke-linecap:butt;
 fill:#ffffff;
@@ -122,17 +122,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 <!-- Text -->
 <text xml:space="preserve" x="14250" y="31050" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">encoding</text>
 <!-- Line: box -->
-<rect x="15750" y="34050" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Text -->
-<text xml:space="preserve" x="16500" y="34350" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
-<!-- Text -->
-<text xml:space="preserve" x="16500" y="34575" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of information</text>
-<!-- Text -->
-<text xml:space="preserve" x="16500" y="34800" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">block length</text>
-<!-- Line: box -->
 <rect x="0" y="30450" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
@@ -143,17 +132,6 @@ stroke-dasharray:40 40;"/>
 <text xml:space="preserve" x="750" y="30975" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">sequence</text>
 <!-- Text -->
 <text xml:space="preserve" x="750" y="31200" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">generation</text>
-<!-- Line: box -->
-<rect x="0" y="35850" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Text -->
-<text xml:space="preserve" x="750" y="36150" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">DCI bit</text>
-<!-- Text -->
-<text xml:space="preserve" x="750" y="36375" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">sequence</text>
-<!-- Text -->
-<text xml:space="preserve" x="750" y="36600" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">extraction</text>
 <!-- Line: box -->
 <rect x="6750" y="30450" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
@@ -317,31 +295,6 @@ stroke-dasharray:40 40;"/>
 <text xml:space="preserve" x="3000" y="23775" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of higher layer</text>
 <!-- Text -->
 <text xml:space="preserve" x="3000" y="24000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">parameters</text>
-<!-- Line: box -->
-<rect x="4500" y="28725" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Line -->
-<polyline points="6000,29175
-6375,29175
-6375,30675
-6630,30675
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 6375 30675 - 6765 30675-->
-<polygon points="6629 30705
-6749 30675
-6629 30645
-6629 30705
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Text -->
-<text xml:space="preserve" x="5250" y="29100" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
-<!-- Text -->
-<text xml:space="preserve" x="5250" y="29325" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of RNTI</text>
 <!-- Line: box -->
 <rect x="2250" y="30450" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
@@ -635,15 +588,6 @@ stroke-dasharray:40 40;"/>
 <!-- Text -->
 <text xml:space="preserve" x="16500" y="29400" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">block length</text>
 <!-- Line: box -->
-<rect x="20250" y="35850" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Text -->
-<text xml:space="preserve" x="21000" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Demultiplexing</text>
-<!-- Text -->
-<text xml:space="preserve" x="21000" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">from PDCCH</text>
-<!-- Line: box -->
 <rect x="20250" y="30450" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
@@ -652,15 +596,6 @@ stroke-dasharray:40 40;"/>
 <text xml:space="preserve" x="21000" y="30825" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Multiplexing</text>
 <!-- Text -->
 <text xml:space="preserve" x="21000" y="31050" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">onto PDCCH</text>
-<!-- Line: box -->
-<rect x="18000" y="35850" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Text -->
-<text xml:space="preserve" x="18750" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Rate</text>
-<!-- Text -->
-<text xml:space="preserve" x="18750" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">dematching</text>
 <!-- Line: box -->
 <rect x="18000" y="19650" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
@@ -744,6 +679,46 @@ stroke-linejoin:miter; stroke-linecap:butt;
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line: box -->
+<rect x="15750" y="34050" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Text -->
+<text xml:space="preserve" x="16500" y="34350" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
+<!-- Text -->
+<text xml:space="preserve" x="16500" y="34575" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of information</text>
+<!-- Text -->
+<text xml:space="preserve" x="16500" y="34800" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">block length</text>
+<!-- Line: box -->
+<rect x="0" y="35850" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Text -->
+<text xml:space="preserve" x="750" y="36150" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">DCI bit</text>
+<!-- Text -->
+<text xml:space="preserve" x="750" y="36375" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">sequence</text>
+<!-- Text -->
+<text xml:space="preserve" x="750" y="36600" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">extraction</text>
+<!-- Line: box -->
+<rect x="20250" y="35850" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Text -->
+<text xml:space="preserve" x="21000" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Demultiplexing</text>
+<!-- Text -->
+<text xml:space="preserve" x="21000" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">from PDCCH</text>
+<!-- Line: box -->
+<rect x="18000" y="35850" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="18750" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Rate</text>
+<!-- Text -->
+<text xml:space="preserve" x="18750" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">dematching</text>
+<!-- Line: box -->
 <rect x="15750" y="35850" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
@@ -763,6 +738,31 @@ stroke-linejoin:miter; stroke-linecap:butt;
 15001 36300
 15121 36330
 15121 36270
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line: box -->
+<rect x="4500" y="28650" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Text -->
+<text xml:space="preserve" x="5250" y="29025" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
+<!-- Text -->
+<text xml:space="preserve" x="5250" y="29250" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of RNTI</text>
+<!-- Line -->
+<polyline points="6000,29100
+6375,29100
+6375,30600
+6630,30600
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 6375 30600 - 6765 30600-->
+<polygon points="6629 30630
+6749 30600
+6629 30570
+6629 30630
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
@@ -928,34 +928,34 @@ stroke-dasharray:40 40;"/>
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line -->
-<polyline points="1620,13725
-1875,13725
+<polyline points="1620,13650
+1875,13650
 1875,12900
 2250,12900
 " style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 "/>
-<!-- Arrowhead on XXXpoint 1875 13725 - 1485 13725-->
-<polygon points="1621 13695
-1501 13725
-1621 13755
-1621 13695
+<!-- Arrowhead on XXXpoint 1875 13650 - 1485 13650-->
+<polygon points="1621 13620
+1501 13650
+1621 13680
+1621 13620
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line -->
-<polyline points="1620,13875
-1875,13875
+<polyline points="1620,13950
+1875,13950
 1875,14700
 9000,14700
 " style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 stroke-dasharray:40 40;"/>
-<!-- Arrowhead on XXXpoint 1875 13875 - 1485 13875-->
-<polygon points="1621 13845
-1501 13875
-1621 13905
-1621 13845
+<!-- Arrowhead on XXXpoint 1875 13950 - 1485 13950-->
+<polygon points="1621 13920
+1501 13950
+1621 13980
+1621 13920
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
@@ -1006,22 +1006,6 @@ fill:#000000;"/>
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 "/>
-<!-- Line -->
-<polyline points="15750,34500
-15375,34500
-15375,36000
-15119,36000
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 15375 36000 - 14985 36000-->
-<polygon points="15121 35970
-15001 36000
-15121 36030
-15121 35970
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
 <!-- Line -->
 <polyline points="6000,30900
 6630,30900
@@ -1201,45 +1185,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 2249 30900
 2129 30870
 2129 30930
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
-<polyline points="2250,36300
-1619,36300
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 2250 36300 - 1485 36300-->
-<polygon points="1621 36270
-1501 36300
-1621 36330
-1621 36270
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line: box -->
-<rect x="2250" y="35850" width="12750" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Line: box -->
-<rect x="4500" y="34125" width="1500" height="900" rx="0" 
-style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Line -->
-<polyline points="6000,34575
-6375,34575
-6375,35730
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 6375 34575 - 6375 35865-->
-<polygon points="6345 35729
-6375 35849
-6405 35729
-6345 35729
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
@@ -1460,34 +1405,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line -->
-<polyline points="20250,36300
-19619,36300
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 20250 36300 - 19485 36300-->
-<polygon points="19621 36270
-19501 36300
-19621 36330
-19621 36270
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
-<polyline points="18000,36300
-17369,36300
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 18000 36300 - 17235 36300-->
-<polygon points="17371 36270
-17251 36300
-17371 36330
-17371 36270
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
 <polyline points="17250,20100
 17880,20100
 " style="stroke:#000000;stroke-width:7;
@@ -1540,6 +1457,89 @@ stroke-linejoin:miter; stroke-linecap:butt;
 17251 25500
 17371 25530
 17371 25470
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="15750,34500
+15375,34500
+15375,36000
+15119,36000
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 15375 36000 - 14985 36000-->
+<polygon points="15121 35970
+15001 36000
+15121 36030
+15121 35970
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="2250,36300
+1619,36300
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 2250 36300 - 1485 36300-->
+<polygon points="1621 36270
+1501 36300
+1621 36330
+1621 36270
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line: box -->
+<rect x="2250" y="35850" width="12750" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="20250,36300
+19619,36300
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 20250 36300 - 19485 36300-->
+<polygon points="19621 36270
+19501 36300
+19621 36330
+19621 36270
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="18000,36300
+17369,36300
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 18000 36300 - 17235 36300-->
+<polygon points="17371 36270
+17251 36300
+17371 36330
+17371 36270
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line: box -->
+<rect x="4500" y="34050" width="1500" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Line -->
+<polyline points="6000,34500
+6375,34500
+6375,35730
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 6375 34500 - 6375 35865-->
+<polygon points="6345 35729
+6375 35849
+6405 35729
+6345 35729
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
@@ -1630,14 +1630,6 @@ fill:#000000;"/>
 <!-- Text -->
 <text xml:space="preserve" x="3000" y="31650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.3.1)</text>
 <!-- Text -->
-<text xml:space="preserve" x="8625" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Distributed-CRC-aided SCL</text>
-<!-- Text -->
-<text xml:space="preserve" x="8625" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">polar decoding</text>
-<!-- Text -->
-<text xml:space="preserve" x="5250" y="34500" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
-<!-- Text -->
-<text xml:space="preserve" x="5250" y="34725" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of RNTI</text>
-<!-- Text -->
 <text xml:space="preserve" x="5250" y="31650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.3.2)</text>
 <!-- Text -->
 <text xml:space="preserve" x="5250" y="31200" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">attachment</text>
@@ -1677,13 +1669,21 @@ fill:#000000;"/>
 <text xml:space="preserve" x="16500" y="31650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.3.4)</text>
 <!-- Text -->
 <text xml:space="preserve" x="16500" y="20850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.1.5)</text>
+<!-- Text -->
+<text xml:space="preserve" x="18750" y="20850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.1.5)</text>
+<!-- Text -->
+<text xml:space="preserve" x="8625" y="36225" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Distributed-CRC-aided SCL</text>
+<!-- Text -->
+<text xml:space="preserve" x="8625" y="36450" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">polar decoding</text>
+<!-- Text -->
+<text xml:space="preserve" x="5250" y="34425" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Determination</text>
 <!-- Line: box -->
 <rect x="2250" y="5250" width="1500" height="900" rx="0" 
 style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 "/>
 <!-- Text -->
-<text xml:space="preserve" x="18750" y="20850" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.1.5)</text>
+<text xml:space="preserve" x="5250" y="34650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">of RNTI</text>
 <!-- Text -->
 <text xml:space="preserve" x="3000" y="5550" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">Code</text>
 <!-- Text -->
