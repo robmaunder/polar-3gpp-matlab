@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: fig2dev Version 3.2 Patchlevel 5d -->
-<!-- CreationDate: Thu Dec 21 16:09:19 2017 -->
+<!-- CreationDate: Thu Dec 21 16:14:44 2017 -->
 <!-- Magnification: 1.000 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1483,9 +1483,9 @@ fill:#000000;"/>
 <!-- Text -->
 <text xml:space="preserve" x="14250" y="31650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.3.3)</text>
 <!-- Text -->
-<text xml:space="preserve" x="0" y="28500" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">New Radio PDCCH encoder</text>
+<text xml:space="preserve" x="0" y="28500" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">PDCCH encoder</text>
 <!-- Text -->
-<text xml:space="preserve" x="0" y="33900" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">New Radio PDCCH decoder</text>
+<text xml:space="preserve" x="0" y="33900" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">PDCCH decoder</text>
 <!-- Text -->
 <text xml:space="preserve" x="7500" y="31650" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="144" text-anchor="middle">(7.3.2)</text>
 <!-- Text -->
