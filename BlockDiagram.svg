@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: fig2dev Version 3.2 Patchlevel 5d -->
-<!-- CreationDate: Thu Dec 21 21:46:36 2017 -->
+<!-- CreationDate: Thu Dec 21 21:55:52 2017 -->
 <!-- Magnification: 1.000 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -850,37 +850,6 @@ style="stroke:#000000;stroke-width:7;
 stroke-linejoin:miter; stroke-linecap:butt;
 "/>
 <!-- Line -->
-<polyline points="11250,11100
-10875,11100
-10875,12600
-10619,12600
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 10875 12600 - 10485 12600-->
-<polygon points="10621 12570
-10501 12600
-10621 12630
-10621 12570
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
-<polyline points="10875,12600
-10875,14400
-10619,14400
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-stroke-dasharray:40 40;"/>
-<!-- Arrowhead on XXXpoint 10875 14400 - 10485 14400-->
-<polygon points="10621 14370
-10501 14400
-10621 14430
-10621 14370
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
 <polyline points="4500,12900
 3869,12900
 " style="stroke:#000000;stroke-width:7;
@@ -1437,22 +1406,6 @@ stroke-linejoin:miter; stroke-linecap:butt;
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
 <!-- Line -->
-<polyline points="15750,34500
-15375,34500
-15375,36000
-15119,36000
-" style="stroke:#000000;stroke-width:7;
-stroke-linejoin:miter; stroke-linecap:butt;
-"/>
-<!-- Arrowhead on XXXpoint 15375 36000 - 14985 36000-->
-<polygon points="15121 35970
-15001 36000
-15121 36030
-15121 35970
-
-" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
-fill:#000000;"/>
-<!-- Line -->
 <polyline points="2250,36300
 1619,36300
 " style="stroke:#000000;stroke-width:7;
@@ -1544,6 +1497,53 @@ stroke-linejoin:miter; stroke-linecap:butt;
 15749 20100
 15629 20070
 15629 20130
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="12750,11100
+13125,11100
+13125,12600
+13380,12600
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 13125 12600 - 13515 12600-->
+<polygon points="13379 12630
+13499 12600
+13379 12570
+13379 12630
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="13125,12600
+13125,14400
+13380,14400
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+stroke-dasharray:40 40;"/>
+<!-- Arrowhead on XXXpoint 13125 14400 - 13515 14400-->
+<polygon points="13379 14430
+13499 14400
+13379 14370
+13379 14430
+
+" style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="17250,34500
+17625,34500
+17625,36000
+17880,36000
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 17625 36000 - 18015 36000-->
+<polygon points="17879 36030
+17999 36000
+17879 35970
+17879 36030
 
 " style="stroke:#000000;stroke-width:7;stroke-miterlimit:8;
 fill:#000000;"/>
