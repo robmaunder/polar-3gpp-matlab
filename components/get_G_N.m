@@ -1,7 +1,6 @@
 function G_N = get_G_N(N)
 % GET_G_N The nth Kronecker power of G_2, as described in Section
-% 5.3.1.2 of 3GPP TS 38.212 V1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% 5.3.1.2 of 3GPP TS 38.212
 %   G_N = GET_G_N(N) obtains the nth Kronecker power of G_2.
 %
 %   N should be an integer scalar, which should be a power of 2. It 

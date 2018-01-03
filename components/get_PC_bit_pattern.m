@@ -1,7 +1,6 @@
 function PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, n_PC_wm)
 % GET_PC_BIT_PATTERN Obtain the Parity Check (PC) bit pattern, 
-% according to Section 5.3.1.2 of 3GPP TS 38.212 V1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% according to Section 5.3.1.2 of 3GPP TS 38.212
 %   PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, n_PC_wm)
 %   obtains the PC bit pattern. 
 %
@@ -66,8 +65,8 @@ Q_N_I = intersect(Q_N, Q_I(info_bit_pattern), 'stable');
 G_N = get_G_N(N);
 w_g = sum(G_N,2);
 
-Q_tilde_N_I = Q_N_I(n_PC+1:end); % This is what it says in TS 38.212 V1.0.1
-%Q_tilde_N_I = Q_N_I(n_PC-n_PC_wm+1:end); % This is what I think it should say
+Q_tilde_N_I = Q_N_I(n_PC+1:end); % This is what it says in TS 38.212
+%Q_tilde_N_I = Q_N_I(n_PC-n_PC_wm+1:end); % I think that this would be slightly more elegant
 
 Q_tilde_N_I_flip = fliplr(Q_tilde_N_I);
 [w_g_sorted, indices] = sort(w_g(Q_tilde_N_I_flip));

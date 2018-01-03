@@ -1,7 +1,6 @@
 function info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode)
 % GET_3GPP_INFO_BIT_PATTERN Obtain the 3GPP information bit pattern, 
-% according to Section 5.4.1.1 of 3GPP TS 38.212 V1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% according to Section 5.4.1.1 of 3GPP TS 38.212
 %   info_bit_pattern = GET_3GPP_INFO_BIT_PATTERN(I, Q_N, rate_matching_pattern, mode)
 %   obtains the information bit pattern info_bit_pattern.
 %
@@ -104,8 +103,6 @@ end
 %         end
 %     end
 % end
-% 
-% Q_Itmp_N = setdiff(Q_N,Q_Ftmp_N,'stable');
 
 %% This is an equivalent but more flexible version, which also works with any rate matching pattern
 Q_Ftmp_N = setdiff(1:N,rate_matching_pattern)-1;

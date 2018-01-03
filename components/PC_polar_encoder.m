@@ -59,7 +59,7 @@ end
 
 % Generate the PC bits and position them together with the information 
 % bits within the input to the polar encoder kernal, according to Section 
-% 5.3.1.2 of TS 38.212 V1.0.1 .
+% 5.3.1.2 of TS 38.212.
 u = zeros(1,N);
 k = 0;
 y = zeros(1,PC_circular_buffer_length);

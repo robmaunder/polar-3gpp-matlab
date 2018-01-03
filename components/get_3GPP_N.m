@@ -1,7 +1,6 @@
 function N = get_3GPP_N(K,E,n_max)
 % GET_3GPP_N Obtain the number of bits in the input and output of the polar
-% encoder kernal, according to Section 5.3.1 of 3GPP TS 38.212 V1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% encoder kernal, according to Section 5.3.1 of 3GPP TS 38.212
 %   N = GET_3GPP_N(K,E,n_max) obtains the number of bits in the input and
 %   output of the polar encoder kernal N.
 %

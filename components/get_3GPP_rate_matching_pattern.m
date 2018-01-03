@@ -1,8 +1,6 @@
 function [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K, N, E)
 % GET_3GPP_RATE_MATCHING_PATTERN Get the 3GPP rate matching 
 % sequence, as specified in Sections 5.4.1.1 and 5.4.1.2 of TS 38.212 
-% v1.0.1 ...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
 %   [rate_matching_pattern, mode] = GET_3GPP_RATE_MATCHING_PATTERN(K,N,E)
 %   obtains the rate matching sequence.
 %

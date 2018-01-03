@@ -1,8 +1,6 @@
 function channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E)
 % GET_3GPP_CHANNEL_INTERLEAVER_PATTERN Obtain the 3GPP channel 
 % interleaver pattern, according to Section 5.4.1.3 of 3GPP TS 38.212 
-% V1.0.1...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
 %   channel_interleaver_pattern = GET_3GPP_CHANNEL_INTERLEAVER_PATTERN(E) obtains the channel interleaver
 %   pattern.
 %

@@ -1,7 +1,6 @@
 function Q_N = get_3GPP_sequence_pattern(N)
 % GET_3GPP_SEQUENCE_PATTERN Get the 3GPP sequence, as specified in Table 
-% 5.3.1-2 of TS 38.212 v1.0.1 ...
-% http://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_AH/NR_AH_1709/Docs/R1-1716928.zip
+% 5.3.1.2-1 of TS 38.212
 %   Q_N = GET_3GPP_PATTERN(N) obtains the 3GPP sequence.
 %
 %   N should be an integer scalar, which should be a power of 2. It 
