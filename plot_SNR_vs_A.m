@@ -70,7 +70,7 @@ function plot_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER,
 if nargin == 0
     code = 'PUCCH';
     A = [8:15, 16:2:30, 32:4:60, 64:8:120, 128:16:240, 256:32:480, 512:64:960, 1024:128:2048];
-    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
+    E = [54 108 216 432 864 1728 3456 6912 13824];
     L = 1;
     min_sum = true;
     target_block_errors = 10;

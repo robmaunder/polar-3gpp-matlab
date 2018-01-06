@@ -70,7 +70,7 @@ function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 if nargin == 0
     code = 'PUCCH';
     A = 32;
-    E = [54 72 108 144 216 288 432 576 864 1152 1728 2304 3456 4608];
+    E = [54 108 216 432 864 1728 3456 6912 13824];
     L = 1;
     min_sum = true;
     target_block_errors = 10;
