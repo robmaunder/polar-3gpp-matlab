@@ -1,6 +1,6 @@
 function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 % PDCCH_DECODER Polar decoder for the Physical Downlink Control Channel (PDCCH) of 3GPP New
-% Radio, as defined in Section 7.3 of TS38.212 V1.2.1. Implements the zero-
+% Radio, as defined in Section 7.3 of TS38.212. Implements the zero-
 % padding to increase the length of short payloads to 12 bits of Section 7.3.1,
 % the Cyclic Redudancy Check (CRC) attachment of Section 7.3.2, the channel
 % coding of Section 7.3.3 and the rate matching of Section 7.3.4. Note that
@@ -13,7 +13,7 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 %   f_tilde should be a real row vector comprising E number of Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
 %   ln(P(bit=0)/P(bit=1)). The first LLR corresponds to f_0 from Section 
-%   7.3.4 of TS38.212 V1.2.1, while the last LLR corresponds to 
+%   7.3.4 of TS38.212, while the last LLR corresponds to 
 %   f_E-1.
 %
 %   A should be an integer scalar. It specifies the number of bits in the
@@ -31,11 +31,11 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 %   RNTI should be a binary row vector comprising 16 bits, each having the
 %   value 0 or 1. If this parameter is omitted, then ones(1,16) will be
 %   used for the RNTI. The first bit corresponds to x_rnti,0 from Section
-%   7.3.2 of TS38.212 V1.2.1, while the last bit corresponds to x_rnti,15.
+%   7.3.2 of TS38.212, while the last bit corresponds to x_rnti,15.
 %
 %   a_hat will be a binary row vector comprising A number of bits, each 
 %   having the value 0 or 1. The first output bit corresponds to a_0 from 
-%   Section 7.3.1 of TS38.212 V1.2.1, while the last output bit corresponds 
+%   Section 7.3.1 of TS38.212, while the last output bit corresponds 
 %   to a_A-1.
 %
 %   See also PDCCH_ENCODER

@@ -1,6 +1,6 @@
 function a_hat = PBCH_decoder(f_tilde, A, L, min_sum, a_tilde)
 % PCBH_DECODER Polar decoder for the Public Broadcast Channel (PBCH) of 3GPP New Radio, as
-% defined in Section 7.1 of TS38.212 V1.2.1. Implements the Cyclic Redudancy
+% defined in Section 7.1 of TS38.212. Implements the Cyclic Redudancy
 % Check (CRC) attachment of Section 7.1.3, the channel coding of Section 7.1.4
 % and the rate matching of Section 7.1.5. Note that this code does not
 % implement the payload generation of Section 7.1.1 or the scrambling of
@@ -12,7 +12,7 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum, a_tilde)
 %   f_tilde should be a real row vector comprising 864 Logarithmic
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
 %   ln(P(bit=0)/P(bit=1)). The first LLR corresponds to f_0 from Section 
-%   7.1.5 of TS38.212 V1.2.1, while the last LLR corresponds to 
+%   7.1.5 of TS38.212, while the last LLR corresponds to 
 %   f_E-1.
 %
 %   A should be 32. It specifies the number of bits in the
@@ -39,12 +39,12 @@ function a_hat = PBCH_decoder(f_tilde, A, L, min_sum, a_tilde)
 %   several higher-layer parameters. If scrambling is implemented
 %   externally to this code, then a_tilde should pertain to the scrambled
 %   bit values. The first input bit corresponds to a'_0 from 
-%   Section 7.1.3 of TS38.212 V1.2.1, while the last input bit corresponds 
+%   Section 7.1.3 of TS38.212, while the last input bit corresponds 
 %   to a'_A-1.
 %
 %   a_hat will be a binary row vector comprising 32 bits, each 
 %   having the value 0 or 1. The first output bit corresponds to a'_0 from 
-%   Section 7.1.3 of TS38.212 V1.2.1, while the last output bit corresponds 
+%   Section 7.1.3 of TS38.212, while the last output bit corresponds 
 %   to a'_A-1.
 %
 %

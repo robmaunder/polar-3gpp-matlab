@@ -1,7 +1,7 @@
 function f = PUCCH_encoder(a, G)
 % PUCCH_ENCODER Polar encoder for the Physical Uplink Control Channel (PUCCH) and the
 % Physical Uplink Shared Channel (PUSCH) of 3GPP New Radio, as defined in
-% Section 6.3 of TS38.212 V1.2.1. Implements the code block segmentation and
+% Section 6.3 of TS38.212. Implements the code block segmentation and
 % Cyclic Redudancy Check (CRC) attachment of Sections 6.3.1.2.1 and 6.3.2.2.1,
 % the channel coding of Sections 6.3.1.3.1 and 6.3.2.3.2, the rate matching of
 % Sections 6.3.1.4.1 and 6.3.2.4.1, as well as the code block concatenation of
@@ -16,8 +16,8 @@ function f = PUCCH_encoder(a, G)
 %
 %   a should be a binary row vector comprising A number of bits, each
 %   having the value 0 or 1, where A should be in the range 12 to 1706. The first
-%   input bit corresponds to a_0 from Sections 6.3.1.2 and 6.3.2.2 of TS38.212
-%   V1.2.1, while the last input bit corresponds to a_A-1.
+%   input bit corresponds to a_0 from Sections 6.3.1.2 and 6.3.2.2 of TS38.212, 
+%   while the last input bit corresponds to a_A-1.
 %
 %   G should be an integer scalar. It specifies the number of bits in the
 %   encoded bit sequence, where G should be no greater than 8192 if A<360
@@ -25,7 +25,7 @@ function f = PUCCH_encoder(a, G)
 %
 %   f will be a binary row vector comprising G number of bits, each having
 %   the value 0 or 1. The first output bit corresponds to g_0 from Sections 
-%   6.3.1.5 and 6.3.2.5 of TS38.212 V1.2.1, while the last output bit 
+%   6.3.1.5 and 6.3.2.5 of TS38.212, while the last output bit 
 %   corresponds to g_G-1.
 %
 %   See also PUCCH_DECODER

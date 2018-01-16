@@ -1,6 +1,6 @@
 function f = PBCH_encoder(a, E)
 % PBCH_ENCODER Polar encoder for the Public Broadcast Channel (PBCH) of 3GPP New Radio, as
-% defined in Section 7.1 of TS38.212 V1.2.1. Implements the Cyclic Redudancy
+% defined in Section 7.1 of TS38.212. Implements the Cyclic Redudancy
 % Check (CRC) attachment of Section 7.1.3, the channel coding of Section 7.1.4
 % and the rate matching of Section 7.1.5. Note that this code does not
 % implement the payload generation of Section 7.1.1 or the scrambling of
@@ -10,7 +10,7 @@ function f = PBCH_encoder(a, E)
 %
 %   a should be a binary row vector comprising 32 bits, each
 %   having the value 0 or 1. The first input bit corresponds to a'_0 from 
-%   Section 7.1.3 of TS38.212 V1.2.1, while the last input bit corresponds 
+%   Section 7.1.3 of TS38.212, while the last input bit corresponds 
 %   to a'_A-1.
 %
 %   E should be 864. It specifies the number of bits in the
@@ -19,7 +19,7 @@ function f = PBCH_encoder(a, E)
 %
 %   f will be a binary row vector comprising 864 bits, each having
 %   the value 0 or 1. The first output bit corresponds to f_0 from Section 
-%   7.1.5 of TS38.212 V1.2.1, while the last output bit corresponds to 
+%   7.1.5 of TS38.212, while the last output bit corresponds to 
 %   f_E-1.
 %
 %   See also PBCH_DECODER

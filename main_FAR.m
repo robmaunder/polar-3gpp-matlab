@@ -1,8 +1,6 @@
 function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
-% PLOT_BLER_VS_SNR Plots Block Error Rate (BLER) versus Signal to Noise
-% Ratio (SNR) for polar codes.
-%   plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
-%   generates the plots.
+% main_FAR calculates False Alarm Rate (FAR) for polar codes.
+%   main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 %
 %   code should be a string. This identifies which encoder and decoder
 %   functions to call. For example, if code is 'custom1', then the
@@ -30,24 +28,11 @@ function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 %   better error correction capability than the min-sum, but it has higher
 %   complexity.
 %
-%   target_block_errors should be an integer scalar. The simulation of each
-%   SNR for each coding rate will continue until this number of block
-%   errors have been observed. A value of 100 is sufficient to obtain
+%   target_false_alarms should be an integer scalar. The simulation of each
+%   encoded block length will continue until this number of false
+%   alarms have been observed. A value of 100 is sufficient to obtain
 %   smooth BLER plots for most values of A. Higher values will give
 %   smoother plots, at the cost of requiring longer simulations.
-%
-%   target_BLER should be a real scalar, in the range (0, 1). The
-%   simulation of each coding rate will continue until the BLER plot
-%   reaches this value.
-%
-%   EsN0_start should be a real row vector, having the same length as the
-%   vector of coding rates. Each value specifies the Es/N0 SNR to begin at
-%   for the simulation of the corresponding coding rate.
-%
-%   EsN0_delta should be a real scalar, having a value greater than 0.
-%   The Es/N0 SNR is incremented by this amount whenever
-%   target_block_errors number of block errors has been observed for the
-%   previous SNR. This continues until the BLER reaches target_BLER.
 %
 %   seed should be an integer scalar. This value is used to seed the random
 %   number generator, allowing identical results to be reproduced by using
@@ -68,9 +53,9 @@ function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 
 % Default values
 if nargin == 0
-    code = 'custom1';
-    A = 16;
-    E = round(A./[0.8333 0.7500 0.6666 0.5000 0.4000 0.3333 0.2500 0.2000 0.1666 0.1250]);
+    code = 'PUCCH';
+    A = 32;
+    E = [54 108 216 432 864 1728 3456 6912 13824];
     L = 1;
     min_sum = true;
     target_false_alarms = 10;

@@ -1,7 +1,7 @@
 function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 % PUCCH_DECODER Polar decoder for the Physical Uplink Control Channel (PUCCH) and the
 % Physical Uplink Shared Channel (PUSCH) of 3GPP New Radio, as defined in
-% Section 6.3 of TS38.212 V1.2.1. Implements the code block segmentation and
+% Section 6.3 of TS38.212. Implements the code block segmentation and
 % Cyclic Redudancy Check (CRC) attachment of Sections 6.3.1.2.1 and 6.3.2.2.1,
 % the channel coding of Sections 6.3.1.3.1 and 6.3.2.3.2, the rate matching of
 % Sections 6.3.1.4.1 and 6.3.2.4.1, as well as the code block concatenation of
@@ -19,7 +19,7 @@ function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 %   Likelihood Ratios (LLRS), each having a value obtained as LLR =
 %   ln(P(bit=0)/P(bit=1)), where G should be no greater than 8192 if A<360
 %   and no greater than 16384 if A>=360. The first LLR corresponds to g_0 
-%   from Sections 6.3.1.5 and 6.3.2.5 of TS38.212 V1.2.1, while the last 
+%   from Sections 6.3.1.5 and 6.3.2.5 of TS38.212, while the last 
 %   LLR corresponds to g_G-1.
 %
 %   A should be an integer scalar. It specifies the number of bits in the
@@ -36,7 +36,7 @@ function a_hat = PUCCH_decoder(f_tilde, A, L, min_sum)
 %
 %   a_hat will be a binary row vector comprising A number of bits, each
 %   having the value 0 or 1. The first output bit corresponds to a_0 from 
-%   Sections 6.3.1.2 and 6.3.2.2 of TS38.212 V1.2.1, while the last output 
+%   Sections 6.3.1.2 and 6.3.2.2 of TS38.212, while the last output 
 %   bit corresponds to a_A-1.
 %
 %   See also PUCCH_ENCODER
