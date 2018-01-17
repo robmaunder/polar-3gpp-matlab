@@ -6,7 +6,7 @@ E = [108 216 432 864 1728];
 
 K = A+21;
 
-
+target_BLER = 0.001;
 
 % Create a figure to plot the results.
 figure
@@ -25,6 +25,14 @@ for E_index = 1:length(E)
     % Create the plot
     plots(E_index) = plot(nan,'Parent',axes1);
     legend(cellstr(num2str(E(1:E_index)', 'E=%d, capacity')),'Location','eastoutside');
+
+    % Open a file to save the results into.
+    filename = ['results/SNR_vs_A_PDCCH_',num2str(target_BLER),'_',num2str(E(E_index)),'_cap'];
+    fid = fopen([filename,'.txt'],'w');
+    if fid == -1
+        error('Could not open %s.txt',filename);
+    end
+    
     
     EsN0s = nan(1,length(A));
     
@@ -32,7 +40,7 @@ for E_index = 1:length(E)
     plot_As = [];
     for A_index = 1:length(A)
         if K(A_index)+3 <= E(E_index)
-            EsN0 = converse_mc(E(E_index), 0.001, K(A_index)/E(E_index),'On2','error');
+            EsN0 = converse_mc(E(E_index), target_BLER, K(A_index)/E(E_index),'On2','error');
             if isempty(plot_EsN0s) || EsN0 > plot_EsN0s(end)
                 plot_EsN0s(end+1) = EsN0;
                 plot_As(end+1) = A(A_index);
@@ -47,8 +55,13 @@ for E_index = 1:length(E)
                 
                 drawnow;
                 
+                fprintf(fid,'%d\t%f\n',A(A_index),EsN0);
+                
             end
             
         end
     end
+    % Close the file
+    fclose(fid);
+
 end
