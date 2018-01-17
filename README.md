@@ -9,7 +9,7 @@ This code is intended to provide a reference model for the standard and has been
 :---: | :---:
 ![PUCCH](./results/PUCCH.svg) **Plot of Signal to Noise Ratio (SNR) E<sub>s</sub>/N<sub>0</sub> required to achieve a Block Error Rate (BLER) of 10<sup>-3</sup> versus number bits in each information block A for the Physical Uplink Control Channel (PUCCH) polar code of 3GPP New Radio, when using Quadrature Phase Shift Keying (QPSK) for communication over an Additive White Gaussian Noise (AWGN) channel. Here, G is the number of bits in each encoded block and L is the list size used during min-sum Successive Cancellation List (SCL) decoding. The simulation of each SNR was continued until 100 block errors were observed. Capacity plots are provided by the O(n<sup>−2</sup>) metaconverse PPV upper bound.** |
 
-The capacity plots in the Figures above were obtained using the O(n<sup>−2</sup>) metaconverse PPV upper bound from the [SPECTRE Short Packet Communication Toolbox](https://github.com/yp-mit/spectre). If you use these results, please acknowledge them with a reference to
+The capacity plots in the Figures above were obtained using the O(n<sup>−2</sup>) metaconverse PPV upper bound from the [SPECTRE Short Packet Communication Toolbox](https://github.com/yp-mit/spectre). If you use these results, please acknowledge them with a reference to...
 
 T. Erseghe, "Coding in the Finite-Blocklength Regime: Bounds Based on Laplace Integrals and Their Asymptotic Approximations", IEEE Transactions on Information Theory, vol. 62, no. 12, pp. 6854 - 6883, Dec. 2016.
 
