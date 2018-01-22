@@ -11,7 +11,7 @@ function main_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 %   decoder function should have a format
 %   a_hat = custom1_decoder(f_tilde, A, L, min_sum). Refer to these
 %   functions for explanations of their inputs and outputs. Suitable values
-%   for code include 'custom1' and 'PBCH'.
+%   for code include 'PBCH', 'PDCCH, 'PUCCH' and 'custom1'.
 %
 %   A should be an integer scalar. It specifies the number of bits in each
 %   simulated information bit sequence, before CRC and other redundant bits
@@ -55,7 +55,7 @@ function main_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 %   different seeds should be used for each instance, in order to collect
 %   different results that can be aggregated together.
 %
-%   See also CUSTOM1_ENCODER and CUSTOM1_DECODER
+%   See also MAIN_SNR_VS_A and MAIN_FAR
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 

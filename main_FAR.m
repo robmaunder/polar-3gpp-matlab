@@ -1,6 +1,7 @@
 function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 % main_FAR calculates False Alarm Rate (FAR) for polar codes.
-%   main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
+%   main_FAR(code, A, E, L, min_sum, target_false_alarms, seed) calculates
+%   the FAR.
 %
 %   code should be a string. This identifies which encoder and decoder
 %   functions to call. For example, if code is 'custom1', then the
@@ -9,7 +10,7 @@ function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 %   decoder function should have a format
 %   a_hat = custom1_decoder(f_tilde, A, L, min_sum). Refer to these
 %   functions for explanations of their inputs and outputs. Suitable values
-%   for code include 'custom1' and 'PBCH'.
+%   for code include 'PBCH', 'PDCCH, 'PUCCH' and 'custom1'.
 %
 %   A should be an integer scalar. It specifies the number of bits in each
 %   simulated information bit sequence, before CRC and other redundant bits
@@ -30,9 +31,7 @@ function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 %
 %   target_false_alarms should be an integer scalar. The simulation of each
 %   encoded block length will continue until this number of false
-%   alarms have been observed. A value of 100 is sufficient to obtain
-%   smooth BLER plots for most values of A. Higher values will give
-%   smoother plots, at the cost of requiring longer simulations.
+%   alarms have been observed.
 %
 %   seed should be an integer scalar. This value is used to seed the random
 %   number generator, allowing identical results to be reproduced by using
@@ -40,7 +39,7 @@ function main_FAR(code, A, E, L, min_sum, target_false_alarms, seed)
 %   different seeds should be used for each instance, in order to collect
 %   different results that can be aggregated together.
 %
-%   See also CUSTOM1_ENCODER and CUSTOM1_DECODER
+%   See also MAIN_BLER_VS_SNR and MAIN_SNR_VS_A
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you
 % can redistribute it and/or modify it under the terms of the GNU General
@@ -78,6 +77,7 @@ for E_index = 1:length(E)
         % Continue the simulation until enough block errors have been simulated
         while false_alarm_count(end) < target_false_alarms
             
+            % Use 
             f_tilde = randn(1,E(E_index));
             
             % Perform polar decoding

@@ -12,14 +12,15 @@ function main_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER,
 %   decoder function should have a format
 %   a_hat = custom1_decoder(f_tilde, A, L, min_sum). Refer to these
 %   functions for explanations of their inputs and outputs. Suitable values
-%   for code include 'custom1' and 'PBCH'.
+%   for code include 'PBCH', 'PDCCH, 'PUCCH' and 'custom1'.
 %
 %   A should be an integer row vector. Each element specifies the number of 
 %   bits in each set of simulated information bit sequences, before CRC and 
 %   other redundant bits are included.
 %
 %   E should be an integer row vector. Each element of E specifies one 
-%   encoded block length to simulate.
+%   encoded block length to simulate, where E is the number of bits in each 
+%   encoded bit sequence.
 %
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.
@@ -55,7 +56,7 @@ function main_SNR_vs_A(code, A, E, L, min_sum, target_block_errors, target_BLER,
 %   different seeds should be used for each instance, in order to collect
 %   different results that can be aggregated together.
 %
-%   See also CUSTOM1_ENCODER and CUSTOM1_DECODER
+%   See also MAIN_BLER_VS_SNR and MAIN_FAR
 %
 % Copyright © 2017 Robert G. Maunder. This program is free software: you 
 % can redistribute it and/or modify it under the terms of the GNU General 
