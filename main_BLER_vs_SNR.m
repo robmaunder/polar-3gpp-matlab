@@ -1,7 +1,7 @@
-function plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
-% PLOT_BLER_VS_SNR Plots Block Error Rate (BLER) versus Signal to Noise
+function main_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
+% MAIN_BLER_VS_SNR Plots Block Error Rate (BLER) versus Signal to Noise
 % Ratio (SNR) for polar codes.
-%   plot_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
+%   main_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BLER, EsN0_start, EsN0_delta, seed)
 %   generates the plots.
 %
 %   code should be a string. This identifies which encoder and decoder
