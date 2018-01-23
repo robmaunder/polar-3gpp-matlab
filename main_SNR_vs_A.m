@@ -97,7 +97,7 @@ grid on
 hold on
 drawnow
 
-% Consider each coding rate in turn
+% Consider each encoded block length in turn
 for E_index = 1:length(E)
     
     % Create the plot
