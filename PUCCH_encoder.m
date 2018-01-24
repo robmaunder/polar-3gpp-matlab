@@ -69,15 +69,16 @@ else % Use CA-polar
     
 end
 
-if G > 8192*C
-    error('polar_3gpp_matlab:UnsupportedBlockLength','G is too long.');
-end
 
 % Determine the number of information and CRC bits.
 P = length(crc_polynomial_pattern)-1;
 K = ceil(A/C)+P;
 
 E_r = floor(G/C);
+
+if E_r > 8192
+    error('polar_3gpp_matlab:UnsupportedBlockLength','G is too long.');
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.

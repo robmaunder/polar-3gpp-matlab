@@ -79,12 +79,6 @@ else % Use CA-polar
     end  
 end
 
-if G > 8192*C
-    error('polar_3gpp_matlab:UnsupportedBlockLength','G is too long.');
-end
-    
-
-
 % The CRC has P bits. P-min(P2,log2(L)) of these are used for error
 % detection, where L is the list size. Meanwhile, min(P2,log2(L)) of
 % them are used to improve error correction. So the CRC needs to be
@@ -97,6 +91,10 @@ P2 = 3;
 K = ceil(A/C)+P;
 
 E_r = floor(G/C);
+
+if E_r > 8192
+    error('polar_3gpp_matlab:UnsupportedBlockLength','G is too long.');
+end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
