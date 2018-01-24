@@ -59,14 +59,9 @@ else % Use CA-polar
     % D^11 + D^10 + D^9 + D^5 + 1
     crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
     
-    if A >= 360 && G >= 1088
-        if mod(G,2) ~= 0
-            error('polar_3gpp_matlab:UnsupportedBlockLength','G should be divisible by 2 when code block segmentation is used.');
-        end
-        
+    if A >= 360 && G >= 1088        
         % Use two segments
-        C = 2;
-        
+        C = 2;        
     else
         % Use one segment
         C = 1;
@@ -82,18 +77,20 @@ end
 P = length(crc_polynomial_pattern)-1;
 K = ceil(A/C)+P;
 
+E_r = floor(G/C);
+
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
-N = get_3GPP_N(K,G/C,10); % n_max = 10 is used in PUCCH channels
+N = get_3GPP_N(K,E_r,10); % n_max = 10 is used in PUCCH channels
 
 % Get a rate matching pattern.
-[rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,G/C);
+[rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E_r);
 
 % Get a sequence pattern.
 Q_N = get_3GPP_sequence_pattern(N);
 
 % Get the channel interleaving pattern
-channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(G/C);
+channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E_r);
 
 if A <= 19 % Use PCCA-polar
     % We use 3 PC bits
@@ -131,14 +128,18 @@ else % Use CA-polar
         % Perform polar encoding for first segment.
         e = CA_polar_encoder(a(1:floor(A/C)),crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern);
         
+        % Initialise the encoded bits. If G is odd, then the final zero
+        % will remain and become a padding bit.
+        f = zeros(1,G);
+        
         % Perform channel interleaving for first segment.
-        f = e(channel_interleaver_pattern);
+        f(1:E_r) = e(channel_interleaver_pattern);
         
         % Perform polar encoding for second segment.
         e = CA_polar_encoder(a(floor(A/C)+1:A),crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
         
         % Perform channel interleaving for second segment.
-        f = [f,e(channel_interleaver_pattern)];
+        f(E_r+1:2*E_r) = e(channel_interleaver_pattern);
         
     else
         % Perform polar encoding.

@@ -71,13 +71,8 @@ else % Use CA-polar
     crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
     
     if A >= 360 && G >= 1088
-        if mod(G,2) ~= 0
-            error('polar_3gpp_matlab:UnsupportedBlockLength','G should be divisible by 2 when code block segmentation is used.');
-        end
-        
         % Use two segments
         C = 2;
-        
     else
         % Use one segment
         C = 1;
@@ -101,18 +96,20 @@ P2 = 3;
 % Determine the number of information and CRC bits.
 K = ceil(A/C)+P;
 
+E_r = floor(G/C);
+
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
-N = get_3GPP_N(K,G/C,10); % n_max = 10 is used in PUCCH channels
+N = get_3GPP_N(K,E_r,10); % n_max = 10 is used in PUCCH channels
 
 % Get a rate matching pattern.
-[rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,G/C);
+[rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E_r);
 
 % Get a sequence pattern.
 Q_N = get_3GPP_sequence_pattern(N);
 
 % Get the channel interleaving pattern
-channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(G/C);
+channel_interleaver_pattern = get_3GPP_channel_interleaver_pattern(E_r);
 
 
 
@@ -151,8 +148,8 @@ else % Use CA-polar
         end
         
         % Perform channel interleaving for first segment.
-        e_tilde = zeros(1,G/C);        
-        e_tilde(channel_interleaver_pattern) = f_tilde(1:G/C);
+        e_tilde = zeros(1,E_r);        
+        e_tilde(channel_interleaver_pattern) = f_tilde(1:E_r);
                 
         % Perform polar decoding for first segment.
         a_hat = CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern,mode,L,min_sum,P2);
@@ -160,7 +157,7 @@ else % Use CA-polar
         if length(a_hat) == floor(A/C)
         
             % Perform channel interleaving for second segment.
-            e_tilde(channel_interleaver_pattern) = f_tilde(G/C+1:G);
+            e_tilde(channel_interleaver_pattern) = f_tilde(E_r+1:2*E_r);
 
             % Perform polar decoding for second segment.
             a_hat = [a_hat, CA_polar_decoder(e_tilde,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern,mode,L,min_sum,P2)];
