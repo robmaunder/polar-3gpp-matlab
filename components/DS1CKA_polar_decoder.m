@@ -214,24 +214,13 @@ for i = 1:N
         if crc_interleaver_pattern(i2) <= A && a_tilde(crc_interleaver_pattern(i2)) == 0 % Information bit with known value of 0
             PM = phi(PM, llrs(i,1,:), 0);         
             bits_updated(i,1) = true;
-            % We use the interleaved CRC generator matrix to update the CRC 
-            % check sums whenever an information bit adopts a value of 1.
-            % We need to toggle the first P information bits to model a CRC 
-            % that is initialised with all ones.
-            if crc_interleaver_pattern(i2) <= P
-                crc_checksums = mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2);           
-            end
        elseif crc_interleaver_pattern(i2) <= A && a_tilde(crc_interleaver_pattern(i2)) == 1 % Information bit with known value of 1
             PM = phi(PM, llrs(i,1,:), 1); 
             bits(i,1,:) = 1;
             bits_updated(i,1) = true;        
             % We use the interleaved CRC generator matrix to update the CRC 
             % check sums whenever an information bit adopts a value of 1.
-            % We need to toggle the first P information bits to model a CRC 
-            % that is initialised with all ones.
-            if crc_interleaver_pattern(i2) > P
-                crc_checksums = mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2);           
-            end
+            crc_checksums = mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2);           
         else
             % Double the list size, using 0-valued bits for the first half and 1-valued bits for the other half
             PM = cat(3,phi(PM, llrs(i,1,:), 0), phi(PM, llrs(i,1,:), 1));
