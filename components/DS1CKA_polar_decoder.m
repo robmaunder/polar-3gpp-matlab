@@ -126,12 +126,12 @@ approx_minstar=min_sum;
 
 %% Characterise the interleaved CRC
 
-% Get the CRC generator matrix, which has dimensions A by P.
-G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
+% Get the CRC generator matrix, which has dimensions A+P by P.
+G_P = get_crc_generator_matrix(A+P,crc_polynomial_pattern);
 
 % Extend the CRC generator matrix by append an identity matrix to 
 % represent the CRC bits, giving dimenstions K by P.
-G_P2 = [G_P;eye(P)];
+G_P2 = [G_P(P+1:end,:);eye(P)];
 
 % Interleave the rows of the extended CRC generator matrix, according to
 % the CRC interleaver.
@@ -190,7 +190,8 @@ PM = zeros(1,1,1); % Initialise the path metrics
 L_prime = 1; % Initialise the list size to 1. This will grow as the decoding proceeds
 
 % We will calculate the CRC checksums alongside the SCL decoding process.
-crc_checksums = zeros(P,1);
+% Initialise the checksums with P number of 1s.
+crc_checksums = mod(sum(G_P(1:P,:)),2)';
 % We will keep track of whether any of the checks associated with the CRC
 % bits have failed.
 crc_okay = true;
@@ -242,13 +243,8 @@ for i = 1:N
 
             % We use the interleaved CRC generator matrix to update the CRC 
             % check sums whenever an information or CRC bit adopts a value of
-            % 1. We need to toggle the first P information bits to model a CRC 
-            % that is initialised with all ones.
-            if crc_interleaver_pattern(i2) <= P
-                crc_checksums = cat(3,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2),crc_checksums);            
-            else
-                crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
-            end
+            % 1.
+            crc_checksums = cat(3,crc_checksums,mod(crc_checksums+repmat(G_P3(i2,:)',[1 1 L_prime]),2));
             % We need to keep track of whether any of the checks associated 
             % with the previous CRC bits have failed.
             crc_okay = cat(3,crc_okay,crc_okay);
