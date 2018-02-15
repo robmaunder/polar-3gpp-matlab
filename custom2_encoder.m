@@ -52,6 +52,9 @@ RNTI = 0;
 
 A = length(a);
 
+if A < 12
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 12.');
+end
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
 end
@@ -62,14 +65,7 @@ end
 crc_polynomial_pattern = [1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 0 1 0 0 0 1 0 1 1 1];
 P = length(crc_polynomial_pattern)-1;
 
-% If a contains fewer than 12 bits, increase its length to 12 by padding it 
-% with zeros
-if A < 12
-    a = [a,zeros(1,12-length(a))];
-    K = 12+P;
-else
-    K = A+P;     
-end
+K = A+P;     
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
