@@ -54,6 +54,9 @@ A = length(a);
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
 end
+if E > 8192
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no greater than 8192.');
+end
 
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
