@@ -67,6 +67,9 @@ end
 RNTI = 0;
 
 E = length(f_tilde);
+if E > 8192
+    error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no greater than 8192.');
+end
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
