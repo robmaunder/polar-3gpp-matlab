@@ -1,4 +1,4 @@
-function f = PDCCH_encoder(a, E, RNTI)
+function [f, str] = PDCCH_encoder(a, E, RNTI)
 % PDCCH_ENCODER Polar encoder for the Physical Downlink Control Channel (PDCCH) of 3GPP New
 % Radio, as defined in Section 7.3 of TS38.212. Implements the zero-
 % padding to increase the length of short payloads to 12 bits of Section 7.3.1,
@@ -58,6 +58,7 @@ if E > 8192
     error('polar_3gpp_matlab:UnsupportedBlockLength','E should be no greater than 8192.');
 end
 
+str = '';
 
 % The CRC polynomial used in 3GPP PBCH and PDCCH channel is
 % D^24 + D^23 + D^21 + D^20 + D^17 + D^15 + D^13 + D^12 + D^8 + D^4 + D^2 + D + 1
@@ -69,19 +70,25 @@ P = length(crc_polynomial_pattern)-1;
 if A < 12
     a = [a,zeros(1,12-length(a))];
     K = 12+P;
+    
+    str = [str,'pad '];
+
 else
     K = A+P;     
+    str = [str,'nopad '];
 end
 
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
 N = get_3GPP_N(K,E,9); % n_max = 9 is used in PBCH and PDCCH channels
+str = [str,sprintf('N=%d ',N)];
 
 % Get the 3GPP CRC interleaver pattern.
 crc_interleaver_pattern = get_3GPP_crc_interleaver_pattern(K);
 
 % Get the 3GPP rate matching pattern.
 [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E);
+str = [str,mode,' '];
 
 % Get the 3GPP sequence pattern.
 Q_N = get_3GPP_sequence_pattern(N);

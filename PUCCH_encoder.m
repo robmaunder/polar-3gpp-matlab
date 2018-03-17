@@ -1,4 +1,4 @@
-function f = PUCCH_encoder(a, G)
+function [f, str] = PUCCH_encoder(a, G)
 % PUCCH_ENCODER Polar encoder for the Physical Uplink Control Channel (PUCCH) and the
 % Physical Uplink Shared Channel (PUSCH) of 3GPP New Radio, as defined in
 % Section 6.3 of TS38.212. Implements the code block segmentation and
@@ -41,6 +41,8 @@ function f = PUCCH_encoder(a, G)
 
 addpath 'components'
 
+str = '';
+
 A = length(a);
 
 if A < 12
@@ -54,17 +56,24 @@ elseif A <= 19 % Use PCCA-polar
     
     % Use one segment
     C = 1;
+    
+    str = [str,'PC '];
 else % Use CA-polar
     % The CRC polynomial used with CA-polar in 3GPP PUCCH channel is
     % D^11 + D^10 + D^9 + D^5 + 1
     crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
+    str = [str,'CA '];
     
     if A >= 360 && G >= 1088        
         % Use two segments
-        C = 2;        
+        C = 2;   
+        str = [str,'2seg '];
+
     else
         % Use one segment
         C = 1;
+        str = [str,'1seg '];
+
     end
     
 end
@@ -83,9 +92,12 @@ end
 % Determine the number of bits used at the input and output of the polar
 % encoder kernal.
 N = get_3GPP_N(K,E_r,10); % n_max = 10 is used in PUCCH channels
+str = [str,sprintf('N=%d ',N)];
 
 % Get a rate matching pattern.
 [rate_matching_pattern, mode] = get_3GPP_rate_matching_pattern(K,N,E_r);
+str = [str,mode,' '];
+
 
 % Get a sequence pattern.
 Q_N = get_3GPP_sequence_pattern(N);
@@ -102,8 +114,10 @@ if A <= 19 % Use PCCA-polar
     
     % Get a PC bit pattern.
     if G-K+3 > 192
+        str = [str,'>192 '];
         PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 1);
     else
+        str = [str,'<=192 '];
         PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
     end
     
@@ -122,12 +136,23 @@ else % Use CA-polar
 
         info_bit_pattern2 = info_bit_pattern;
         if mod(A,2) ~= 0 % Prepend a zero to the first segment during encoding
+            str = [str,'pre '];
+            
             % Treat the first information bit as a frozen bit
             info_bit_pattern2(find(info_bit_pattern == 1,1,'first')) = 0;
+        else
+            str = [str,'nopre ']; 
         end
+        
         
         % Perform polar encoding for first segment.
         e = CA_polar_encoder(a(1:floor(A/C)),crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern);
+        
+        if mod(G,2)
+            str = [str,'noapp '];
+        else
+            str = [str,'app '];
+        end
         
         % Initialise the encoded bits. If G is odd, then the final zero
         % will remain and become a padding bit.
