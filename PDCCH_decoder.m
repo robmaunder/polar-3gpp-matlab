@@ -51,6 +51,9 @@ function a_hat = PDCCH_decoder(f_tilde, A, L, min_sum, RNTI)
 
 addpath 'components'
 
+if A == 0
+    error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no less than 1.');
+end
 if A > 140
     error('polar_3gpp_matlab:UnsupportedBlockLength','A should be no greater than 140.');
 end
