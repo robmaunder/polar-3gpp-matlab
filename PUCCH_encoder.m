@@ -149,9 +149,9 @@ else % Use CA-polar
         e = CA_polar_encoder(a(1:floor(A/C)),crc_polynomial_pattern,info_bit_pattern2,rate_matching_pattern);
         
         if mod(G,2)
-            str = [str,'noapp '];
-        else
             str = [str,'app '];
+        else
+            str = [str,'noapp '];
         end
         
         % Initialise the encoded bits. If G is odd, then the final zero
