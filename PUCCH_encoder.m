@@ -118,6 +118,8 @@ else % Use CA-polar
     % Get an information bit pattern.
     info_bit_pattern = get_3GPP_info_bit_pattern(K, Q_N, rate_matching_pattern, mode);
     
+    sum(reshape(info_bit_pattern,4,numel(info_bit_pattern)/4))
+    
     if C == 2
 
         info_bit_pattern2 = info_bit_pattern;
