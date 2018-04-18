@@ -64,7 +64,7 @@ else % Use CA-polar
     crc_polynomial_pattern = [1 1 1 0 0 0 1 0 0 0 0 1];
     str = [str,'CA '];
     
-    if A >= 360 && G >= 1088        
+    if (A >= 360 && G >= 1088) || A >= 1013        
         % Use two segments
         C = 2;   
         str = [str,'2seg '];
