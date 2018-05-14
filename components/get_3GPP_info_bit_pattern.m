@@ -1,6 +1,6 @@
 function info_bit_pattern = get_3GPP_info_bit_pattern(I, Q_N, rate_matching_pattern, mode)
 % GET_3GPP_INFO_BIT_PATTERN Obtain the 3GPP information bit pattern, 
-% according to Section 5.4.1.1 of 3GPP TS 38.212
+% according to Section 5.3.1.2 of 3GPP TS 38.212
 %   info_bit_pattern = GET_3GPP_INFO_BIT_PATTERN(I, Q_N, rate_matching_pattern, mode)
 %   obtains the information bit pattern info_bit_pattern.
 %
