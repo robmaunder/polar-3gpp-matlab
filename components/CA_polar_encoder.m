@@ -54,20 +54,57 @@ if max(rate_matching_pattern) > N
     error('rate_matching_pattern is not compatible with N');
 end
 
+fprintf('information bits: ');
+fprintf('%d', a);
+fprintf('\n\n');
+
 % Generate the CRC bits and append them to the information bits.
 G_P = get_crc_generator_matrix(A,crc_polynomial_pattern);
 b = [a, mod(a*G_P,2)];
+
+fprintf('CRC bits: ');
+fprintf('%d', mod(a*G_P,2));
+fprintf('\n\n');
+
+
+fprintf('information and CRC bits: ');
+fprintf('%d', b);
+fprintf('\n\n');
+
+fprintf('information and CRC bit pattern: ');
+fprintf('%d', info_bit_pattern);
+fprintf('\n\n');
+
 
 % Position the information and CRC bits within the input to the polar 
 % encoder kernal.
 u = zeros(1,N);
 u(info_bit_pattern) = b;
 
+fprintf('information, CRC and frozen bits: ');
+fprintf('%d', u);
+fprintf('\n\n');
+
+
 % Perform the polar encoder kernal operation.
 G_N = get_G_N(N);
 d = mod(u*G_N,2);
 
+fprintf('encoded bits before rate matching: ');
+fprintf('%d', d);
+fprintf('\n\n');
+
+
+fprintf('rate matching pattern: ');
+fprintf('%d ', rate_matching_pattern-1);
+fprintf('\n\n');
+
+
 % Extract the encoded bits from the output of the polar encoder kernal.
 e = d(rate_matching_pattern);
+
+fprintf('encoded bits after rate matching: ');
+fprintf('%d', e);
+fprintf('\n\n');
 
 end

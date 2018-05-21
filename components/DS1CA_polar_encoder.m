@@ -70,30 +70,79 @@ if P < length(crc_scrambling_pattern)
     error('polar_3gpp_matlab:UnsupportedBlockLength','K should be no less than the length of the scrambing pattern');
 end
 
+fprintf('information bits: ');
+fprintf('%d', a);
+fprintf('\n\n');
 
 % Generate the CRC bits.
 G_P = get_crc_generator_matrix(A+P,crc_polynomial_pattern);
 crc_bits = mod([ones(1,P),a]*G_P,2);
 
+fprintf('CRC bits: ');
+fprintf('%d', crc_bits);
+fprintf('\n\n');
+
+fprintf('RNTI: ');
+fprintf('%d', crc_scrambling_pattern);
+fprintf('\n\n');
+
+
 % Scramble the CRC bits.
 scrambled_crc_bits = xor(crc_bits,[zeros(1,P-length(crc_scrambling_pattern)),crc_scrambling_pattern]);
  
+fprintf('Scrambled CRC bits: ');
+fprintf('%d', scrambled_crc_bits);
+fprintf('\n\n');
+
 % Append the scrambled CRC bits to the information bits.
 b = [a, scrambled_crc_bits];
 
+fprintf('information and CRC bits: ');
+fprintf('%d', b);
+fprintf('\n\n');
+
+fprintf('interleaver pattern: ');
+fprintf('%d ', crc_interleaver_pattern-1);
+fprintf('\n\n');
+
+
 % Interleave the information and CRC bits.
 c = b(crc_interleaver_pattern);
+
+fprintf('interleaved information and CRC bits: ');
+fprintf('%d', c);
+fprintf('\n\n');
+
+fprintf('information and CRC bit pattern: ');
+fprintf('%d', info_bit_pattern);
+fprintf('\n\n');
 
 % Position the information and CRC bits within the input to the polar 
 % encoder kernal.
 u = zeros(1,N);
 u(info_bit_pattern) = c;
 
+fprintf('information, CRC and frozen bits: ');
+fprintf('%d', u);
+fprintf('\n\n');
+
 % Perform the polar encoder kernal operation.
 G_N = get_G_N(N);
 d = mod(u*G_N,2);
 
+fprintf('encoded bits before rate matching: ');
+fprintf('%d', d);
+fprintf('\n\n');
+
+fprintf('rate matching pattern: ');
+fprintf('%d ', rate_matching_pattern-1);
+fprintf('\n\n');
+
 % Extract the encoded bits from the output of the polar encoder kernal.
 e = d(rate_matching_pattern);
+
+fprintf('encoded bits after rate matching: ');
+fprintf('%d', e);
+fprintf('\n\n');
 
 end

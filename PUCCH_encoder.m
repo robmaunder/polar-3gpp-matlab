@@ -146,8 +146,18 @@ else % Use CA-polar
         % Perform polar encoding.
         e = CA_polar_encoder(a,crc_polynomial_pattern,info_bit_pattern,rate_matching_pattern);
         
+        
+        fprintf('interleaver pattern: ');
+        fprintf('%d ', channel_interleaver_pattern-1);
+        fprintf('\n\n');
+        
         % Perform channel interleaving.
         f = e(channel_interleaver_pattern);
+        
+        fprintf('encoded bits after interleaving: ');
+        fprintf('%d', f);
+        fprintf('\n\n');
+
     end
 end
 
