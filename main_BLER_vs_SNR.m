@@ -24,7 +24,7 @@ function main_BLER_vs_SNR(code, A, E, L, min_sum, target_block_errors, target_BL
 %   L should be a scalar integer. It specifies the list size to use during
 %   Successive Cancellation List (SCL) decoding.
 %
-%   min_sum shoular be a scalar logical. If it is true, then the SCL
+%   min_sum should be a scalar logical. If it is true, then the SCL
 %   decoding process will be completed using the min-sum approximation.
 %   Otherwise, the log-sum-product will be used. The log-sum-product gives
 %   better error correction capability than the min-sum, but it has higher
