@@ -107,6 +107,10 @@ if A <= 19 % Use PCCA-polar
         PC_bit_pattern = get_PC_bit_pattern(info_bit_pattern, Q_N, n_PC, 0);
     end
     
+    PC_bit_pattern+info_bit_pattern
+    
+    PC_bit_pattern(find((PC_bit_pattern+info_bit_pattern)>0,1,'first'))
+    
     % Perform polar encoding.
     e = PCCA_polar_encoder(a, crc_polynomial_pattern, info_bit_pattern, PC_bit_pattern, 5, rate_matching_pattern);
     
