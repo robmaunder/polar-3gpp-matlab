@@ -37,6 +37,7 @@ function info_bit_pattern = get_info_bit_pattern(I, Q_N, rate_matching_pattern)
 
 N = length(Q_N);
 n = log2(N);
+E = length(rate_matching_pattern);
 
 if n ~= round(n)
     error('N should be a power of 2');
