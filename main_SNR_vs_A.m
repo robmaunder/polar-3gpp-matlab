@@ -125,11 +125,13 @@ for E_index = 1:length(E)
             % Initialise the BLER and SNR
             BLER=1;
             prev_BLER = nan;
-            EsN0 = EsN0_start;
-            prev_EsN0 = nan;
+            EsN0 = EsN0_start-EsN0_delta;
             
             % Loop over the SNRs
             while BLER > target_BLER
+                prev_EsN0 = EsN0;
+                EsN0 = EsN0 + EsN0_delta;
+
                 % Convert from SNR (in dB) to noise power spectral density
                 N0 = 1/(10^(EsN0/10));
                 
@@ -184,8 +186,6 @@ for E_index = 1:length(E)
                 end
                 prev_BLER = BLER;
                 BLER = block_error_count/block_count;
-                prev_EsN0 = EsN0;
-                EsN0 = EsN0 + EsN0_delta;
             end
         catch ME
             if strcmp(ME.identifier, 'polar_3gpp_matlab:UnsupportedBlockLength')
